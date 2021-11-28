@@ -1,0 +1,152 @@
+/* ====================== [ Start services ] ====================== */
+
+.services {
+
+  .item {
+    position: relative;
+    z-index: 2;
+
+    .avatar {
+      position: relative;
+      height: 0;
+      padding-top: 90%;
+
+      img {
+        position: absolute;
+        height: 100%;
+        width: calc(100% - 10px);
+        top: 5px;
+        left: 5px;
+        object-fit: cover;
+      }
+    }
+
+    .caption {
+      padding: 20px 25px;
+
+      .btn-curve {
+        width: 100%;
+        color: #7e868e;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        text-align: center;
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        span {
+          font-weight: 600;
+        }
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background-image: linear-gradient(135deg, #e9e9e9 8.33%, transparent 8.33%,
+              transparent 50%, #e9e9e9 50%, #e9e9e9 58.33%, transparent 58.33%, transparent 100%);
+      background-size: 8.49px 8.49px;
+      z-index: -2;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      background: #fff;
+      z-index: -1;
+    }
+
+    .content {
+      display: flex;
+      gap: 5px;
+      line-height: 1.6;
+      padding-bottom: 6px;
+      padding-top: 6px;
+      margin-bottom: 0;
+
+      .icon {
+        flex: 0 0 22px;
+        font-weight: 800;
+        line-height: 1;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: cover;
+        background-position: center center;
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid #e9e9e9;
+      }
+    }
+
+    .icon {
+      color: #000;
+      font-size: 20px;
+      font-weight: 700;
+      margin-top: 0;
+    }
+
+    h6 {
+      margin-bottom: 10px;
+      text-transform: capitalize;
+      letter-spacing: .3px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .letr {
+      font-size: 80px;
+      font-weight: 800;
+      line-height: 1;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: cover;
+      background-position: center center;
+    }
+
+    .more {
+      float: right;
+      font-size: 13px;
+      letter-spacing: 2px;
+      margin-top: 50px;
+      transition: all .4s;
+
+      &:hover {
+        color: $main-color;
+      }
+
+      i {
+        font-size: 20px;
+        top: 5px;
+        position: relative;
+      }
+    }
+  }
+
+  &.serv-pg {
+    font-family: 'Poppins', sans-serif;
+
+    .item {
+      overflow: hidden;
+
+      .icon {
+        float: right;
+      }
+    }
+  }
+}
+
+/* ====================== [ End services ] ====================== */

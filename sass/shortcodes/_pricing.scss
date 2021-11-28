@@ -1,0 +1,64 @@
+/* ====================== [ Start Price ] ====================== */
+
+.price {
+
+  .item {
+    padding: 30px;
+    color: #fff;
+    background: #131821;
+
+    .type {
+      margin-bottom: 15px;
+
+      h5 {
+        font-weight: 300;
+        letter-spacing: 2px;
+      }
+    }
+
+    .amount {
+      margin-bottom: 30px;
+
+      h2 {
+        position: relative;
+        font-weight: 300;
+        display: inline-block;
+
+        span {
+          color: #aaa;
+          font-size: 14px;
+          font-weight: 300;
+          position: absolute;
+          left: -15px;
+          top: 0;
+        }
+
+        i {
+          font-size: 13px;
+          color: #aaa;
+        }
+      }
+    }
+
+    .feat {
+      margin-bottom: 30px;
+
+      ul {
+        margin: 0;
+
+        li {
+          line-height: 2;
+          color: $pcolor;
+          font-size: 15px;
+          font-weight: 400;
+
+          .icon {
+            color: $main-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ====================== [ End Price ] ====================== */

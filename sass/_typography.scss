@@ -1,0 +1,138 @@
+/* ====================== [ Start Typography  ] ====================== */
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/fa-regular-400.eot);
+  src: url(../fonts/fa-regular-400.eot?#iefix) format("embedded-opentype"), url(../fonts/fa-regular-400.woff2) format("woff2"), url(../fonts/fa-regular-400.woff) format("woff"), url(../fonts/fa-regular-400.ttf) format("truetype"), url(../fonts/fa-regular-400.svg#fontawesome) format("svg")
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 900;
+  src: url(../fonts/fa-solid-900.eot);
+  src: url(../fonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url(../fonts/fa-solid-900.woff2) format("woff2"), url(../fonts/fa-solid-900.woff) format("woff"), url(../fonts/fa-solid-900.ttf) format("truetype"), url(../fonts/fa-solid-900.svg#fontawesome) format("svg")
+}
+
+@font-face {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/fa-brands-400.eot);
+  src: url(../fonts/fa-brands-400.eot?#iefix) format("embedded-opentype"), url(../fonts/fa-brands-400.woff2) format("woff2"), url(../fonts/fa-brands-400.woff) format("woff"), url(../fonts/fa-brands-400.ttf) format("truetype"), url(../fonts/fa-brands-400.svg#fontawesome) format("svg")
+}
+
+.fab {
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+}
+
+body {
+  color: #0c0f16;
+  line-height: 1.5;
+  font-weight: 400;
+  overflow-x: hidden !important;
+  font-family: 'Open Sans', sans-serif;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+span, a, a:hover {
+  display: inline-block;
+  color: inherit;
+}
+
+h1 {
+  font-size: 55px;
+}
+
+h2 {
+  font-size: 40px;
+}
+
+h3 {
+  font-size: 35px;
+}
+
+h4 {
+  font-size: 30px;
+}
+
+h5 {
+  font-size: 25px;
+}
+
+h6 {
+  font-size: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+p {
+  color: $pcolor;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 2;
+  margin: 0;
+}
+
+a, span {
+  display: inline-block;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+
+.custom-font {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.desc,
+.txt,
+p,
+input,
+textarea,
+label {
+  font-family: 'Poppins', sans-serif;
+}
+
+.bg-blc {
+  background: #10141b;
+  position: relative;
+  z-index: 2;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/pattern-bg.svg);
+    opacity: .04;
+    z-index: -1;
+  }
+}
+
+/* ====================== [ End Typography  ] ====================== */

@@ -1,0 +1,93 @@
+/*-----------------------------------------------------------------------------------
+
+    Theme Name: Billie
+    Theme URI: http://
+    Description: Creative Agency & Portfolio
+    Author: UI-ThemeZ
+    Author URI: http://themeforest.net/user/UI-ThemeZ
+    Version: 1.0
+
+-----------------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------
+
+== Table Of Content
+
+    |--- BASE
+
+        |- typography
+        |- helper classes
+
+    |--- SHORTCODES
+
+        |- extra
+        |- overlay
+        |- section-heading
+        |- buttons
+        |- navbar
+        |- sliders
+        |- intro
+        |- feature-box
+        |- clients
+        |- counter
+        |- portfolio
+        |- process
+        |- progress-bar
+        |- tabs
+        |- team
+        |- testimonials
+        |- blog
+        |- contact-form
+        |- footers
+
+    |--- BASE
+
+        |- responsive
+	
+
+
+---------------------------------------------------------------- */
+
+/* == bootstrap == */
+@import 'bootstrap4';
+
+/* == animate css == */
+@import 'plugins/animate';
+
+/* == ionicons icon font == */
+@import 'plugins/ionicons';
+
+/* == pe-icon-7-stroke == */
+@import 'plugins/pe-icon-7-stroke';
+
+/* == fontawesome icon font == */
+@import 'plugins/fontawesome-all';
+
+/* == justifiedGallery.min == */
+@import 'plugins/justifiedGallery';
+
+/* == YouTubePopUp == */
+@import 'plugins/YouTubePopUp';
+
+/* == slick carousel == */
+@import 'plugins/slick';
+@import 'plugins/slick-theme';
+
+/* == swiper.min font == */
+@import 'plugins/swiper';
+
+// Initialize
+@import "variables";
+
+// Core CSS
+@import "typography";
+@import "helper";
+
+// Shortcodes
+@import "shortcodes";
+
+// responsive
+@import "custom";
+@import "responsive";
+
+

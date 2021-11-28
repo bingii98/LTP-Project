@@ -1,0 +1,60 @@
+/* ====================== [ Start brands ] ====================== */
+
+.clients-brand {
+
+  &.box {
+
+    .item {
+      border: 1px solid rgba(255, 255, 255, .4);
+      padding: 30px;
+      margin: 0 25px;
+      color: #fff;
+    }
+  }
+
+  .brands {
+
+    &:hover {
+
+      .img {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      .link {
+        opacity: 1 !important;
+        transition: all 0;
+      }
+
+      .char {
+        animation: fadeInUp .3s cubic-bezier(.3, 0, .7, 1) both;
+        animation-delay: calc(20ms * var(--char-index));
+      }
+    }
+  }
+
+  .item {
+    position: relative;
+    text-align: center;
+
+    .link {
+      font-size: 16px;
+      width: max-content;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%);
+      opacity: 0;
+      transition: all .3s;
+    }
+  }
+
+  .img {
+    max-width: 85px;
+    margin: auto;
+    position: relative;
+    transition: all .4s;
+  }
+}
+
+/* ====================== [ End brands ] ====================== */

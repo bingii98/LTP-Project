@@ -1,0 +1,91 @@
+/* ====================== [ Start Footer ] ====================== */
+
+.footer {
+  background: #10141b;
+  //padding: 100px 0 0;
+  color: #fff;
+  z-index: 3;
+  position: relative;
+
+  .logo {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 15px;
+
+    img {
+      width: 60px;
+    }
+  }
+
+  .address {
+
+    p {
+      color: #fff;
+      font-size: 13px;
+    }
+  }
+
+  .social {
+    text-align: center;
+
+    a {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      line-height: 45px;
+      text-align: center;
+      font-size: 12px;
+      color: $main-color;
+      border-radius: 50%;
+      margin: 0 10px;
+
+      &:hover {
+        background: rgba(255, 109, 84, .05);
+      }
+    }
+  }
+
+  .info {
+    text-align: right;
+
+    ul {
+      margin: 0;
+    }
+
+    li {
+      margin: 0 0 15px;
+      font-size: 13px;
+
+      span {
+        font-weight: 600;
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .sub-footer {
+    padding: 40px 0;
+    background: #151921;
+    //margin-top: 100px;
+
+    .copy {
+      font-size: 12px;
+      line-height: 45px;
+
+      a {
+        color: $main-color;
+      }
+    }
+
+    .text-right {
+
+      a {
+        font-size: 12px;
+        font-weight: 300;
+        margin-left: 15px;
+      }
+    }
+  }
+}
+
+/* ====================== [ End Footer ] ====================== */

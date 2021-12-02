@@ -908,6 +908,38 @@ $("#add-subjects, #edit-subject, #add-room, #edit-room").submit(function (e) {
     });
 });
 
+$("#add-user-room, #edit-user-room").submit(function (e) {
+    e.preventDefault();
+    var form = $(this);
+    var url = form.attr('action');
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(),
+        beforeSend: function () {
+            $('.error-label').remove();
+        },
+        success: function (data) {
+            if (data['error'] === 1) {
+                if (data['exist'] === 1) {
+                    $(`[name="name"]`).after('<label class="error-label">Tên đã được sử dụng!</label>')
+                    $(`[name="title"]`).after('<label class="error-label">Tên đã được sử dụng!</label>')
+                } else {
+                    $.each(data['empty_fields'], function (index, value) {
+                        $(`[name=${index}]`).after('<label class="error-label">Vui lòng không để trống trường này!</label>')
+                    });
+                }
+            } else {
+                if ($('.back-page').length) {
+                    window.location.href = decodeURIComponent($('.back-page').val())
+                } else {
+                    window.location = window.location.href.split("?")[0];
+                }
+            }
+        }
+    });
+});
+
 
 $("#login").submit(function (e) {
     e.preventDefault();
@@ -926,7 +958,11 @@ $("#login").submit(function (e) {
             if (data['error'] === 1) {
                 $(`[name=password]`).after(`<label class="error-label">${data['massage']}</label>`)
             } else {
-                location.reload();
+                if ($('.back-page').length) {
+                    window.location.href = decodeURIComponent($('.back-page').val())
+                } else {
+                    location.reload();
+                }
             }
         }
     });

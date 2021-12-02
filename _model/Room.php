@@ -409,7 +409,7 @@ class Room
         return $data;
     }
 
-    public static function add($arr)
+    public static function add($arr, $isCurrentUser = false)
     {
         header('Content-Type: application/json');
 
@@ -486,7 +486,7 @@ class Room
         }
     }
 
-    public static function edit($arr)
+    public static function edit($arr, $isCurrentUser = false)
     {
         header('Content-Type: application/json');
 

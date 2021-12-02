@@ -23,6 +23,12 @@ switch ($action) {
     case "add-room":
         echo Room::add($data);
         break;
+    case "add-user-room":
+        echo Room::add($data, true);
+        break;
+    case "edit-user-room":
+        echo Room::edit($data, true);
+        break;
     case "edit-room":
         echo Room::edit($data);
         break;

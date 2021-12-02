@@ -64,7 +64,7 @@ $colors: map-merge(
                 $colors
 );
 
-$primary: #10141b !default;
+$primary: $blue !default;
 $secondary: $gray-600 !default;
 $success: $green !default;
 $info: $cyan !default;
@@ -198,9 +198,8 @@ $grid-breakpoints: (
         md: 768px,
         lg: 992px,
         xl: 1200px,
-        xxl: 1400px,
-        xxxl: 1600px,
-        xxxxl: 1700px
+        xxl: 1500px,
+        xxxl: 1700px
 ) !default;
 
 @include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
@@ -216,9 +215,8 @@ $container-max-widths: (
         md: 720px,
         lg: 960px,
         xl: 1140px,
-        xxl: 1300px,
-        xxxl: 1500px,
-        xxxxl: 1600px
+        xxl: 1400px,
+        xxxl: 1600px
 ) !default;
 
 @include _assert-ascending($container-max-widths, "$container-max-widths");
@@ -325,7 +323,7 @@ $display-line-height: $headings-line-height !default;
 $lead-font-size: $font-size-base * 1.25 !default;
 $lead-font-weight: 300 !default;
 
-$small-font-size: 90% !default;
+$small-font-size: 80% !default;
 
 $text-muted: $gray-600 !default;
 

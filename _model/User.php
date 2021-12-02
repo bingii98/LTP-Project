@@ -624,7 +624,11 @@ class User
             $conn = DBConnection::getConnection();
 
             //CHECK USER
-            $user = self::getByID($arr['userID']);
+            if(isset($arr['userID'])){
+                $user = self::getByID($arr['userID']);
+            }else{
+                $user = self::getByID(base64_decode($_SESSION["user_id"]) / 1368546448245512);
+            }
 
             if ($user) {
                 unset($arr['action']);
@@ -652,7 +656,6 @@ class User
                 }
 
                 /** CONFIG */
-                $currentUser = $arr['userID'] ? false : true;
                 $isAdmin = isset($arr['admin']) && $arr['admin'] == 'true' ? '?action=user-edit&user=' . $user->getUsername() : '';
 
                 /** REWRITE DATA */
@@ -671,7 +674,7 @@ class User
                     $sql .= " `subjects_ids` = '" . $subjects . "',";
                     $sql .= " `description` = '" . $description . "',";
                     $sql .= " `schedule` = '" . join(',', $schedule) . "'";
-                    $sql .= " WHERE `user`.`userID` = " . (!$currentUser ? $user->getUserID() : base64_decode($_SESSION["user_id"]) / 1368546448245512);
+                    $sql .= " WHERE `user`.`userID` = " . $user->getUserID();
                     if ($conn->query($sql) == TRUE) {
                         Message::add('Đã chỉnh sửa người dùng ' . $user->getFirstName() . ' ' . $user->getLastName() . '!');
                         echo json_encode(array(

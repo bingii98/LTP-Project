@@ -10,11 +10,10 @@
   padding: $pagination-padding-y $pagination-padding-x;
   margin-left: -$pagination-border-width;
   line-height: $pagination-line-height;
-  color: $primary;
+  color: $pagination-color;
   text-decoration: if($link-decoration == none, null, none);
-  background-color: transparent;
-  border: 0;
-  font-weight: 700;
+  background-color: $pagination-bg;
+  border: $pagination-border-width solid $pagination-border-color;
 
   &:hover {
     z-index: 2;
@@ -38,7 +37,6 @@
       @include border-left-radius($border-radius);
     }
   }
-
   &:last-child {
     .page-link {
       @include border-right-radius($border-radius);
@@ -47,7 +45,9 @@
 
   &.active .page-link {
     z-index: 3;
-    opacity: .8;
+    color: $pagination-active-color;
+    background-color: $pagination-active-bg;
+    border-color: $pagination-active-border-color;
   }
 
   &.disabled .page-link {

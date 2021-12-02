@@ -73,35 +73,50 @@ include_once '_inc/header.php'; ?>
                         </span>
                         <span>(<?= $rate['count'] ?>)</span>
                     </div>
-                    <div class="line">
-                        <span class="icon-2 pe-7s-switch"></span>
-                        <h6 class="sub-title">Đề nghị dạy:</h6>
-                        <span>Đã có <?= Room::checkUserInRoom($data->getID()) ?> học viên</span>
-                    </div>
-                    <?php $isJoined = Room::checkReviewed($data->getID()); ?>
-                    <div class="line">
-                        <form id="apply-class" method="post" action="admin-ajax">
-                            <input type="hidden" name="action" value="apply-class">
-                            <input type="hidden" name="data" value="<?= $data->getID() ?>">
-                            <button class="btn-curve btn-normal dark" <?= $isJoined['reviewed'] ? 'disabled' : '' ?>><span><?= $isJoined['reviewed'] ? 'Đã tham gia' : 'Ứng tuyển' ?></span></button>
-                            <?php if ($isJoined['reviewed'] && $data->isClosed()) : ?>
-                                <?php if (!$isJoined['checked']) : ?>
-                                    <button type="button" class="btn-curve btn-normal btn-popup" <?= $isJoined ? '' : 'disabled' ?>><span>Đánh giá lại</span></button>
-                                <?php else: ?>
-                                    <button type="button" class="btn-curve btn-normal" disabled><span>Đã đánh giá</span></button>
+                    <?php if (isset($_SESSION['2748_loggedin'])) : ?>
+                        <div class="line">
+                            <span class="icon-2 pe-7s-switch"></span>
+                            <h6 class="sub-title">Đề nghị dạy:</h6>
+                            <span>Đã có <?= Room::checkUserInRoom($data->getID()) ?> học viên</span>
+                        </div>
+                        <?php $isJoined = Room::checkReviewed($data->getID()); ?>
+                        <div class="line">
+                            <form id="apply-class" method="post" action="admin-ajax">
+                                <input type="hidden" name="action" value="apply-class">
+                                <input type="hidden" name="data" value="<?= $data->getID() ?>">
+                                <button class="btn-curve btn-normal dark" <?= $isJoined['reviewed'] ? 'disabled' : '' ?>><span><?= $isJoined['reviewed'] ? 'Đã tham gia' : 'Ứng tuyển' ?></span></button>
+                                <?php if ($isJoined['reviewed'] && $data->isClosed()) : ?>
+                                    <?php if (!$isJoined['checked']) : ?>
+                                        <button type="button" class="btn-curve btn-normal btn-popup" <?= $isJoined ? '' : 'disabled' ?>><span>Đánh giá lại</span></button>
+                                    <?php else: ?>
+                                        <button type="button" class="btn-curve btn-normal" disabled><span>Đã đánh giá</span></button>
+                                    <?php endif; ?>
                                 <?php endif; ?>
-                            <?php endif; ?>
-                        </form>
-                    </div>
-                    <div class="line">
-                        <label class="error" id="apply-error">
-                            <?php if ($isJoined['reviewed'] && !$isJoined['checked'] && !$data->isClosed()) : ?>
-                                Đánh giá tạm thời của bạn cho lớp học này là 5 sao, bạn có thể đánh giá lại sao khi hoàn thành khóa học!
-                            <?php elseif ($isJoined['reviewed'] && !$isJoined['checked'] && $data->isClosed()): ?>
-                                Bạn có thể đánh giá lại
-                            <?php endif; ?>
-                        </label>
-                    </div>
+                            </form>
+                        </div>
+                        <div class="line">
+                            <label class="error" id="apply-error">
+                                <?php if ($isJoined['reviewed'] && !$isJoined['checked'] && !$data->isClosed()) : ?>
+                                    Đánh giá tạm thời của bạn cho lớp học này là 5 sao, bạn có thể đánh giá lại sao khi hoàn thành khóa học!
+                                <?php elseif ($isJoined['reviewed'] && !$isJoined['checked'] && $data->isClosed()): ?>
+                                    Bạn có thể đánh giá lại
+                                <?php endif; ?>
+                            </label>
+                        </div>
+                    <?php else: ?>
+                        <?php
+                        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+                            $currentUrl = "https://";
+                        else
+                            $currentUrl = "http://";
+                        $currentUrl .= $_SERVER['HTTP_HOST'];
+                        $currentUrl .= $_SERVER['REQUEST_URI']; ?>
+                        <div class="line">
+                            <span class="icon-2 pe-7s-switch"></span>
+                            <h6 class="sub-title">Đề nghị dạy:</h6>
+                            <span>Vui lòng <a class="note" href="dang-nhap?page=<?= urlencode($currentUrl) ?>">đăng nhập</a> để nhận lớp!</span>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="sec-head mt-40 mb-0">
@@ -226,7 +241,7 @@ include_once '_inc/header.php'; ?>
     </div>
 </section>
 
-<?php if ($isJoined['reviewed'] && !$isJoined['checked'] && $data->isClosed()): ?>
+<?php if (isset($_SESSION['2748_loggedin']) && $isJoined['reviewed'] && !$isJoined['checked'] && $data->isClosed()): ?>
     <div class="custom-popup popup-hide">
         <div class="popup-content">
             <div class="content-wrapper">

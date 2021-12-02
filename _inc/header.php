@@ -70,13 +70,13 @@ if (!isset($_SESSION)) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link style.css" href="danh-sach-gia-su">Gia sư</a>
+                    <a class="nav-link style.css" href="<?= Config::HOME_PATH ?>/danh-sach-gia-su">Gia sư</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link custom-font" href="services.html">Yêu cầu mới</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link custom-font" href="contact.html">Đăng yêu cầu</a>
+                    <a class="nav-link custom-font" href="<?= Config::HOME_PATH ?>/dang-yeu-cau">Đăng yêu cầu</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link custom-font" href="contact.html">Trở thành gia sư</a>

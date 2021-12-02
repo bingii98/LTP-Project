@@ -283,6 +283,13 @@ h6.sub-title {
   display: inline-block;
 }
 
+.line {
+  a {
+    text-decoration: underline;
+    color: #ff6d54;
+  }
+}
+
 .icon-2 {
   font-weight: 600;
   width: 25px;
@@ -666,8 +673,65 @@ label.error {
   }
 }
 
-#rating-error{
+#rating-error {
   margin-top: 1rem;
   text-align: center;
   width: 100%;
+}
+
+.account-wrapper {
+  .sidebar {
+    background-color: #fff;
+    position: relative;
+    z-index: 2;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background-image: linear-gradient(135deg, $main-color 8.33%, transparent 8.33%, transparent 50%, $main-color 50%, $main-color 58.33%, transparent 58.33%, transparent 100%);
+      background-size: 8.49px 8.49px;
+      z-index: -2;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      background: #fff;
+      z-index: -1;
+    }
+
+    ul {
+      li {
+        a {
+          padding: 10px 15px;
+          border-bottom: 1px solid #e9e9e9;
+          width: 100%;
+          position: relative;
+          z-index: 1;
+
+          &:hover {
+            background-color: #e9e9e9;
+          }
+        }
+      }
+    }
+  }
+}
+
+.form-control {
+  border-radius: 0;
+
+  &:focus,
+  &:active {
+    outline: none;
+    box-shadow: unset;
+  }
 }

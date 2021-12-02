@@ -42,6 +42,9 @@
                                     </li>
                                 </ul>
                                 <input type="hidden" name="action" value="login">
+                                <?php if (isset($_GET['page']) && !empty($_GET['page'])) : ?>
+                                    <input type="hidden" class="back-page" value="<?= $_GET['page'] ?>">
+                                <?php endif; ?>
                             </form>
                         <?php else: ?>
                             <h4 class="wow" data-splitting>Welcome <a href="<?= Config::HOME_PATH ?>/chinh-sua-tai-khoan"><?= $_SESSION["user_display_name"] ?></a>.</h4>

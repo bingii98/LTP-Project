@@ -3,6 +3,7 @@ global $user;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $rooms = Room::getPaginationByOwner($page, $user->getUserID()); ?>
 <div id="services" class="services bg-repeat bg-img" data-background="img/bg-pattern.jpg">
+    <a href="http://localhost:3000/LTP-Project/lop-hoc?data=7">http://localhost:3000/LTP-Project/lop-hoc?data=7</a>
     <div class="row">
         <?php foreach ($rooms['data'] as $room) : ?>
             <div class="col-12">

@@ -7,6 +7,7 @@ $isEdit = isset($_GET['edit']) ? true : false;
 ?>
 <section class="contact section-padding pt-0">
     <div class="container">
+        <a href="http://localhost:3000/LTP-Project/lop-hoc?data=7">http://localhost:3000/LTP-Project/lop-hoc?data=7</a>
         <div class="form">
             <input type="hidden" class="back-page" value="<?= Config::HOME_PATH ?>/tai-khoan?lop-hoc&data=<?= $data->getID() ?>">
             <form id="edit-user-room" action="admin-ajax" method="post">

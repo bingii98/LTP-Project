@@ -1,10 +1,10 @@
 <?php
-require_once './_model/Room.php';
-require_once './_model/Subjects.php';
+require_once 'bi-includes/_model/Room.php';
+require_once 'bi-includes/_model/Subjects.php';
 
 $data = Room::getByKey($_GET['data']);
 
-include_once '_inc/header.php'; ?>
+include_once 'bi-includes/_inc/header.php'; ?>
 <!-- ==================== Start Services ==================== -->
 <section class="services serv-pg section-padding bg-repeat bg-img pb-0" data-background="img/bg-pattern.jpg">
     <div class="sec-head custom-font text-center">
@@ -56,11 +56,14 @@ include_once '_inc/header.php'; ?>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="line">
-                        <span class="icon-2 pe-7s-switch"></span>
-                        <h6 class="sub-title">Đánh giá:</h6>
-                        <?php $rate = Room::getRating($data->getID()); ?>
-                        <span class="rating">
+
+                    <?php /** FOR REQUEST - START **/ ?>
+                    <?php if ($data->getIsRequest() != 1) : ?>
+                        <div class="line">
+                            <span class="icon-2 pe-7s-switch"></span>
+                            <h6 class="sub-title">Đánh giá:</h6>
+                            <?php $rate = Room::getRating($data->getID()); ?>
+                            <span class="rating">
                             <?php for ($index = 0; $index < 5; $index++) : ?>
                                 <?php if ($index < $rate['data']) : ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 32 32" height="512" viewBox="0 0 32 32" width="512"><g id="star"><path
@@ -71,20 +74,26 @@ include_once '_inc/header.php'; ?>
                                 <?php endif; ?>
                             <?php endfor; ?>
                         </span>
-                        <span>(<?= $rate['count'] ?>)</span>
-                    </div>
+                            <span>(<?= $rate['count'] ?>)</span>
+                        </div>
+                    <?php endif; ?>
+                    <?php /** FOR REQUEST - END **/ ?>
+
+
+                    <?php /** CHECK LOGIN - START **/ ?>
                     <?php if (isset($_SESSION['2748_loggedin'])) : ?>
+
                         <div class="line">
                             <span class="icon-2 pe-7s-switch"></span>
                             <h6 class="sub-title">Đề nghị dạy:</h6>
-                            <span>Đã có <?= Room::checkUserInRoom($data->getID()) ?> học viên</span>
+                            <span>Đã có <?= Room::checkUserInRoom($data->getID()) ?> <?= $data->getIsRequest() == 1 ? ' ứng tuyển' : 'học viên' ?></span>
                         </div>
                         <?php $isJoined = Room::checkReviewed($data->getID()); ?>
                         <div class="line">
                             <form id="apply-class" method="post" action="admin-ajax">
                                 <input type="hidden" name="action" value="apply-class">
                                 <input type="hidden" name="data" value="<?= $data->getID() ?>">
-                                <button class="btn-curve btn-normal dark" <?= $isJoined['reviewed'] ? 'disabled' : '' ?>><span><?= $isJoined['reviewed'] ? 'Đã tham gia' : 'Ứng tuyển' ?></span></button>
+                                <button class="btn-curve btn-normal dark" <?= $isJoined['reviewed'] ? 'disabled' : '' ?>><span><?= $isJoined['reviewed'] ? ($data->getIsRequest() == 1 ? 'Đã ứng tuyển' : 'Đã tham gia') : 'Ứng tuyển' ?></span></button>
                                 <?php if ($isJoined['reviewed'] && $data->isClosed()) : ?>
                                     <?php if (!$isJoined['checked']) : ?>
                                         <button type="button" class="btn-curve btn-normal btn-popup" <?= $isJoined ? '' : 'disabled' ?>><span>Đánh giá lại</span></button>
@@ -94,15 +103,21 @@ include_once '_inc/header.php'; ?>
                                 <?php endif; ?>
                             </form>
                         </div>
+
                         <div class="line">
                             <label class="error" id="apply-error">
-                                <?php if ($isJoined['reviewed'] && !$isJoined['checked'] && !$data->isClosed()) : ?>
-                                    Đánh giá tạm thời của bạn cho lớp học này là 5 sao, bạn có thể đánh giá lại sao khi hoàn thành khóa học!
-                                <?php elseif ($isJoined['reviewed'] && !$isJoined['checked'] && $data->isClosed()): ?>
-                                    Bạn có thể đánh giá lại
+                                <?php /** FOR REQUEST - START **/ ?>
+                                <?php if ($data->getIsRequest() != 1) : ?>
+                                    <?php if ($isJoined['reviewed'] && !$isJoined['checked'] && !$data->isClosed()) : ?>
+                                        Đánh giá tạm thời của bạn cho lớp học này là 5 sao, bạn có thể đánh giá lại sao khi hoàn thành khóa học!
+                                    <?php elseif ($isJoined['reviewed'] && !$isJoined['checked'] && $data->isClosed()): ?>
+                                        Bạn có thể đánh giá lại
+                                    <?php endif; ?>
                                 <?php endif; ?>
+                                <?php /** FOR REQUEST - END **/ ?>
                             </label>
                         </div>
+
                     <?php else: ?>
                         <?php
                         if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
@@ -117,6 +132,7 @@ include_once '_inc/header.php'; ?>
                             <span>Vui lòng <a class="note" href="dang-nhap?page=<?= urlencode($currentUrl) ?>">đăng nhập</a> để nhận lớp!</span>
                         </div>
                     <?php endif; ?>
+                    <?php /** CHECK LOGIN - END **/ ?>
                 </div>
             </div>
             <div class="sec-head mt-40 mb-0">
@@ -349,7 +365,7 @@ include_once '_inc/header.php'; ?>
     </div>
 </section>
 
-<?php include_once '_inc/footer.php' ?>
+<?php include_once 'bi-includes/_inc/footer.php' ?>
 
 <script>
     $(document).ready(function () {

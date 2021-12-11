@@ -1,5 +1,6 @@
 <?php
-session_start();
-unset($_SESSION["2748_loggedin"]);
+if (!isset($_SESSION)) session_start();
+
+session_destroy();
 header("Location:dang-nhap");
 ?>

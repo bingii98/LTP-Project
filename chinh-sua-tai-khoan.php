@@ -1,7 +1,7 @@
 <?php
-require_once './_model/User.php';
-require_once './_model/Subjects.php';
-require_once './_model/Address.php';
+require_once 'bi-includes/_model/User.php';
+require_once 'bi-includes/_model/Subjects.php';
+require_once 'bi-includes/_model/Address.php';
 $subjectss = Subjects::getAll();
 
 /** USER INFO */
@@ -20,7 +20,7 @@ $user = User::getByID((base64_decode($_SESSION["user_id"]) / 1368546448245512), 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="<?= Parameter::getValueByKey('home_path') ?>/assets/css/theme.min.css">
+    <link rel="stylesheet" href="<?= Config::HOME_PATH ?>/assets/css/theme.min.css">
 </head>
 <body>
 <section class="professor-grid">
@@ -28,9 +28,9 @@ $user = User::getByID((base64_decode($_SESSION["user_id"]) / 1368546448245512), 
 
     </div>
 </section>
-<script src="<?= Parameter::getValueByKey('home_path') ?>/assets/js/jquery.js"></script>
-<script src="<?= Parameter::getValueByKey('home_path') ?>/assets/js/districts.min.js"></script>
+<script src="<?= Config::HOME_PATH ?>/assets/js/jquery.js"></script>
+<script src="<?= Config::HOME_PATH ?>/assets/js/districts.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="<?= Parameter::getValueByKey('home_path') ?>/assets/js/theme.min.js"></script>
+<script src="<?= Config::HOME_PATH ?>/assets/js/theme.min.js"></script>
 </body>
 </html>

@@ -7751,7 +7751,7 @@ function editorInit() {
 }
 
 $('.chosen-select').select2();
-$("#edit-account").submit(function (e) {
+$("#edit-account, #become-professor").submit(function (e) {
   e.preventDefault();
   var form = $(this);
   var url = form.attr('action');
@@ -7772,6 +7772,10 @@ $("#edit-account").submit(function (e) {
           window.location = window.location.href.split("?")[0] + data['admin'];
         } else {
           window.location = window.location.href.split("?")[0];
+        }
+
+        if (data['addition_message']) {
+          alert(data['addition_message']);
         }
       }
     }
@@ -7807,7 +7811,7 @@ $("#add-account").submit(function (e) {
     }
   });
 });
-$("#add-subjects, #edit-subject, #add-room, #edit-room").submit(function (e) {
+$("#add-subjects, #edit-subject, #add-room, #edit-room, #add-request").submit(function (e) {
   e.preventDefault();
   var form = $(this);
   var url = form.attr('action');
@@ -7882,8 +7886,6 @@ $("#login").submit(function (e) {
       $('.error-label').remove();
     },
     success: function (data) {
-      console.log(data);
-
       if (data['error'] === 1) {
         $(`[name=password]`).after(`<label class="error-label">${data['massage']}</label>`);
       } else {
@@ -7891,6 +7893,39 @@ $("#login").submit(function (e) {
           window.location.href = decodeURIComponent($('.back-page').val());
         } else {
           location.reload();
+        }
+      }
+    }
+  });
+});
+$("#register").submit(function (e) {
+  e.preventDefault();
+  var form = $(this);
+  var url = form.attr('action');
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: form.serialize(),
+    beforeSend: function () {
+      console.log(form.serialize());
+      $('.error-label').remove();
+    },
+    success: function (data) {
+      if (data['error'] === 1) {
+        if (data['exist'] === 1) {
+          $(`[name="username"]`).after('<label class="error-label">Tên đã được sử dụng!</label>');
+        } else {
+          $.each(data['empty_fields'], function (index, value) {
+            $(`[name=${index}]`).after('<label class="error-label">Vui lòng không để trống trường này!</label>');
+          });
+        }
+      } else {
+        alert('Đăng ký thành công!');
+
+        if ($('.back-page').length) {
+          window.location.href = decodeURIComponent($('.back-page').val());
+        } else {
+          window.location = window.location.href.split("?")[0];
         }
       }
     }
@@ -7935,6 +7970,56 @@ $("#rating-form").submit(function (e) {
         location.reload();
       }
     }
+  });
+});
+$('#avatar-change').click(function () {
+  let file = $('[name="avatar"]');
+  file.trigger('click');
+  $('#avatar-upload').change(function () {
+    /** SHOW BUTTON */
+    $('.btn-change-avatar').show();
+    /** SHOW PREVIEW */
+
+    if (typeof FileReader != "undefined") {
+      var image_holder = $('.avatar-wrapper .box-img');
+      image_holder.empty();
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        $("<img />", {
+          "src": e.target.result,
+          "class": "thumb-image"
+        }).appendTo(image_holder);
+      };
+
+      image_holder.show();
+      reader.readAsDataURL($(this)[0].files[0]);
+    } else {
+      alert("This browser does not support FileReader.");
+    }
+  });
+  $('.btn-change-avatar').click(function () {
+    const data = new FormData();
+    const file = $('[name="avatar"]')[0].files[0];
+    data.append('file', file);
+    data.append('action', 'upload-file');
+    $.ajax({
+      type: "POST",
+      url: 'admin-ajax',
+      data: data,
+      contentType: false,
+      processData: false,
+      beforeSend: function () {
+        $('#rating-error').text();
+      },
+      success: function (data) {
+        if (data['error'] === 1) {
+          $('#apply-error').text(data['message']);
+        } else {
+          $('#apply-error').text('Đăng ký thành công!');
+        }
+      }
+    });
   });
 });
 !function (o) {

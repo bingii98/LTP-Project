@@ -1,4 +1,4 @@
-<?php include_once '_inc/header.php' ?>
+<?php include_once 'bi-includes/_inc/header.php' ?>
     <!-- ==================== Start Slider ==================== -->
     <header class="slider slider-prlx fixed-slider">
         <div class="swiper-container parallax-slider">
@@ -330,4 +330,4 @@
         <!-- ==================== End Testimonials ==================== -->
     </div>
 
-<?php include_once '_inc/footer.php' ?>
+<?php include_once 'bi-includes/_inc/footer.php' ?>

@@ -1,5 +1,5 @@
 <?php
-include_once '_inc/header.php';
+include_once 'bi-includes/_inc/header.php';
 ?>
 
     <section>
@@ -345,4 +345,4 @@ include_once '_inc/header.php';
             </div>
         </section>
 
-<?php include_once '_inc/footer.php' ?>
+<?php include_once 'bi-includes/_inc/footer.php' ?>

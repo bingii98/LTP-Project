@@ -84,7 +84,7 @@ $subjectss = Subjects::getAll();
                     </div>
                     <div class="form-group">
                         <label>Phí nhận lớp</label>
-                        <input type="number" class="form-control" name="price">
+                        <input type="text" class="form-control" name="price" data-type='currency' placeholder="500,000">
                     </div>
                     <div class="form-group">
                         <label>Lịch học</label>

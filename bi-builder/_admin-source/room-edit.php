@@ -118,8 +118,8 @@ $isEdit = isset($_GET['edit']) ? true : false;
                                     <?= base64_decode($data->getDescription()) ?>
                                 </div>
                                 <textarea name="description" hidden>
-                                            <?= base64_decode($data->getDescription()) ?>
-                                        </textarea>
+                                    <?= base64_decode($data->getDescription()) ?>
+                                </textarea>
                             </div>
                         <?php else: ?>
                             <div class="txt">
@@ -129,7 +129,7 @@ $isEdit = isset($_GET['edit']) ? true : false;
                     </div>
                     <div class="form-group">
                         <label>Phí nhận lớp</label>
-                        <input type="number" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" value="<?= $data->getPrice() ?>">
+                        <input type="text" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" data-type='currency' value="<?= $data->getPrice() ?>">
                     </div>
                     <div class="form-group">
                         <label>Lịch học</label>

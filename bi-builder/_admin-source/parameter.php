@@ -1,6 +1,6 @@
 <?php if (!is_current_user_admin()) return;
 
-require_once 'bi-includes/_model/Parameter.php';
+require_once '_model/Parameter.php';
 $datas = Parameter::getAll(); ?>
 <div class="card shadow mb-4">
     <div class="card-header py-3">

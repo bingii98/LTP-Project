@@ -550,6 +550,10 @@ class Room
         unset($arr['description']);
         unset($arr['admin']);
 
+        /** PRICE FORMAT **/
+        if (isset($arr['price']))
+            $arr['price'] = (int)filter_var($arr['price'], FILTER_SANITIZE_NUMBER_INT);
+
         try {
             $sql = "INSERT INTO `room` (`id`, `title`, `userID`, `status`, `subject_id`, `type`, `sex`, `time`, `hours`, `price`, `offer_to_teach`, `description`, `schedule`, `isRequest`) VALUES 
                     (NULL, '" . $arr['title'] . "', '" . (base64_decode($_SESSION["user_id"]) / 1368546448245512) . "', '" . $arr['status'] . "', 
@@ -617,11 +621,15 @@ class Room
             $address = $arr['street'] . '-- ' . $arr['wards'] . '-- ' . $arr['district'] . '-- ' . $arr['provinces'];
             $subject_id = $arr['subject_id'] . ',';
 
+            /** PRICE FORMAT **/
+            if (isset($arr['price']))
+                $arr['price'] = (int)filter_var($arr['price'], FILTER_SANITIZE_NUMBER_INT);
+
             $map = strip_tags($arr['map'], '<iframe>');
             $map = base64_encode($map);
 
             $schedule = [];
-            for ($i = 0; $i < 8; $i++) {
+            for ($i = 0; $i <= 8; $i++) {
                 if (isset($arr[$i . 's']) && $arr[$i . 's'] == 'true') {
                     $schedule[] = $i . 's';
                     unset($arr[$i . 's']);

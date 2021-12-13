@@ -129,7 +129,7 @@ $isEdit = isset($_GET['edit']) ? true : false;
                     </div>
                     <div class="form-group">
                         <label>Phí nhận lớp</label>
-                        <input type="number" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" value="<?= $data->getPrice() ?>">
+                        <input type="text" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" data-type="currency" value="<?= $data->getPrice() ?>">
                     </div>
                     <div class="form-group">
                         <label>Lịch học</label>
@@ -244,7 +244,37 @@ $isEdit = isset($_GET['edit']) ? true : false;
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="time">Địa chỉ</label>
-                            <textarea class="form-control border-dark<?= $isEdit ? '' : ' view'; ?>" name="address"><?= $data->getAddress() ?></textarea>
+                            <?php if ($isEdit) : ?>
+                                <?php
+                                $address = explode('--', $data->getAddress());
+                                ?>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label>Tỉnh / Thành phố</label>
+                                        <select class="<?= $isEdit ? '' : 'view'; ?>" name="provinces" required>
+                                            <option value="">Tỉnh / Thành phố</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Huyện / Quận</label>
+                                        <select class="<?= $isEdit ? '' : 'view'; ?>" name="district">
+                                            <option value="">Quận / Huyện</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label>Tên Phường/ Xã</label>
+                                        <input class="form-control border-dark<?= $isEdit ? '' : ' view'; ?>" name="wards" value="<?= $address[1] ?>"/>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label>Tên Đường/ Số nhà</label>
+                                        <input class="form-control border-dark<?= $isEdit ? '' : ' view'; ?>" name="street" value="<?= $address[0] ?>"/>
+                                    </div>
+                                </div>
+                            <?php else: ?>
+                                <span><?= str_replace('--', ',', $data->getAddress()) ?></span>
+                            <?php endif; ?>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="time">Map iframe</label>

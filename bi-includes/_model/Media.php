@@ -87,6 +87,22 @@ class Media
         return $rows;
     }
 
+    public static function getFileByKey($key)
+    {
+        $conn = DBConnection::getConnection();
+        $sql = "SELECT * FROM `media` WHERE `id` = '" . $key . "'";
+        $rs = mysqli_query($conn, $sql);
+        $data = 1;
+        if (mysqli_num_rows($rs) > 0) {
+            while ($row = mysqli_fetch_object($rs)) {
+                return new Media($row->id, $row->file_name, $row->uploaded_on);
+            }
+        }
+
+        DBConnection::closeConnection($conn);
+        return null;
+    }
+
     public static function getFileNameByKey($key)
     {
         $conn = DBConnection::getConnection();
@@ -143,6 +159,29 @@ class Media
             'error' => 1,
             'message' => 'Something went wrong!'
         ));
+    }
+
+    public static function delete($ID = null)
+    {
+        $conn = DBConnection::getConnection();
+        //CHECK USER
+        $img = self::getFileByKey($ID);
+
+        if ($img) {
+            $sql = "DELETE FROM `media` WHERE id = " . $img->getId();
+            if ($conn->query($sql) == TRUE) {
+                Message::add('Đã xóa file ' . $img->getFileName() . '!');
+                unlink('uploads/' . $img->getFileName());
+                return (array(
+                    'error' => 0,
+                    'file' => $img->getFileName(),
+                ));
+            } else {
+                return (array(
+                    'error' => 1,
+                ));
+            }
+        }
     }
 
     public static function add($message)

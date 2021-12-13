@@ -1080,7 +1080,7 @@ $('#avatar-change').click(function () {
         }
     })
 
-    $('.btn-change-avatar').click(function (){
+    $('.btn-change-avatar').click(function () {
         const data = new FormData();
         const file = $('[name="avatar"]')[0].files[0];
         data.append('file', file);
@@ -1099,7 +1099,8 @@ $('#avatar-change').click(function () {
                 if (data['error'] === 1) {
                     $('#apply-error').text(data['message']);
                 } else {
-                    $('#apply-error').text('Đăng ký thành công!');
+                    $('#apply-error').text('Thay đổi thành công!');
+                    $('.btn-change-avatar').hide()
                 }
             }
         });
@@ -1167,14 +1168,20 @@ if ($('.rating-box').length) {
 
 // Jquery Dependency
 $("input[data-type='currency']").on({
-    keyup: function() {
+    keyup: function () {
         formatCurrency($(this));
     },
-    blur: function() {
+    blur: function () {
+        formatCurrency($(this), "blur");
+    },
+    load: function () {
         formatCurrency($(this), "blur");
     }
 });
 
+$(document).ready(function () {
+    formatCurrency($("input[data-type='currency']"));
+})
 
 function formatNumber(n) {
     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -1183,14 +1190,16 @@ function formatNumber(n) {
 
 function formatCurrency(input, blur) {
     var input_val = input.val();
-    if (input_val === "") { return; }
+    if (input_val === "") {
+        return;
+    }
     var original_len = input_val.length;
     var caret_pos = input.prop("selectionStart");
     if (input_val.indexOf(".") >= 0) {
         var decimal_pos = input_val.indexOf(".");
         var left_side = input_val.substring(0, decimal_pos);
         left_side = formatNumber(left_side);
-        input_val =left_side;
+        input_val = left_side;
     } else {
         input_val = formatNumber(input_val);
     }

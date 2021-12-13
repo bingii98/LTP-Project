@@ -20,8 +20,8 @@
                         <?= base64_decode($user->getDescription()) ?>
                     </div>
                     <textarea name="description" hidden>
-                                            <?= base64_decode($user->getDescription()) ?>
-                                        </textarea>
+                        <?= base64_decode($user->getDescription()) ?>
+                    </textarea>
                 </div>
             <?php else: ?>
                 <div class="txt">
@@ -145,7 +145,7 @@
             </div>
             <div class="form-group">
                 <label>Giá dịch vụ (tính theo giờ)</label>
-                <input type="number" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" value="<?= $user->getPrice() ?>">
+                <input type="text" data-type="currency" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" value="<?= $user->getPrice() ?>">
             </div>
         </div>
     <?php endif; ?>

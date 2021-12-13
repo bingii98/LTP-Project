@@ -38,6 +38,16 @@ if (isset($_GET['action']) && !empty($_GET['action'])) :
         case "class-edit":
             include_once 'bi-builder/_admin-source/room-edit.php';
             break;
+        case "address":
+            include_once 'bi-builder/_admin-source/address.php';
+            break;
+        case "media":
+            if(isset($_GET['info']) && !empty($_GET['info'])){
+                include_once 'bi-builder/_admin-source/media-detail.php';
+            }else{
+                include_once 'bi-builder/_admin-source/media.php';
+            }
+            break;
         default:
             echo 'Xin chào quản trị viên!';
             break;

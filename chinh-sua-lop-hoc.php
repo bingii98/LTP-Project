@@ -147,7 +147,7 @@ $user = User::getByID((base64_decode($_SESSION["user_id"]) / 1368546448245512), 
                 </div>
                 <div class="form-group">
                     <label>Giá dịch vụ (tính theo giờ)</label>
-                    <input type="number" class="form-control" name="price" value="<?= $user->getPrice() ?>">
+                    <input type="text" data-type="currency" class="form-control" name="price" value="<?= $user->getPrice() ?>">
                 </div>
             </div>
             <div class="btn-wrap">

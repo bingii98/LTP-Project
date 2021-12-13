@@ -190,7 +190,7 @@ $isEdit = isset($_GET['edit']) ? true : false;
                         </div>
                         <div class="form-group">
                             <label>Giá dịch vụ (tính theo giờ)</label>
-                            <input type="number" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" value="<?= $user->getPrice() ?>">
+                            <input type="text" data-type="currency" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" value="<?= $user->getPrice() ?>">
                         </div>
                         <div class="form-group">
                             <label>Giờ trống</label>

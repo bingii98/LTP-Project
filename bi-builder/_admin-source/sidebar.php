@@ -76,12 +76,26 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
-            <span>Parameter</span>
+            <span>Cài đặt</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="<?= Config::HOME_PATH ?>\admin?action=parameter">Setting</a>
+                <a class="collapse-item" href="<?= Config::HOME_PATH ?>\admin?action=parameter">Cài đặt chung</a>
+                <a class="collapse-item" href="<?= Config::HOME_PATH ?>\admin?action=address">Địa chỉ</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMedia"
+           aria-expanded="true" aria-controls="collapseMedia">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Media</span>
+        </a>
+        <div id="collapseMedia" class="collapse" aria-labelledby="collapseMedia" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Components:</h6>
+                <a class="collapse-item" href="<?= Config::HOME_PATH ?>\admin?action=media">Tất cả Media</a>
             </div>
         </div>
     </li>

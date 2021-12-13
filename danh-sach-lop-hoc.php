@@ -3,6 +3,7 @@ require_once 'bi-includes/_model/User.php';
 require_once 'bi-includes/_model/Subjects.php';
 require_once 'bi-includes/_model/Room.php';
 require_once 'bi-includes/_model/Parameter.php';
+require_once 'bi-includes/_model/Media.php';
 
 $subjectss = Subjects::getAll();
 $subjects_ids = [];
@@ -112,62 +113,91 @@ $subjects_id = isset($_GET['subjects']) && !empty($_GET['subjects']) ? $_GET['su
                                 <?php foreach ($rooms['data'] as $room) : ?>
                                     <div class="col-12">
                                         <div class="item room-item wow fadeInUp md-mb50 pt-20 pb-20 pl-3 pr-4 mb-30" data-wow-delay=".3s">
-                                            <div class="top-caption d-flex">
-                                                <h6 class="custom-font"><?= $room->getTitle() ?></h6>
-                                                <div class="d-inline-flex mr-30 align-items-center price">
-                                                    <span class="icon pe-7s-ticket"></span>
-                                                    <span class="price ml-1">
-                                                <?= number_format($room->getPrice(), 0, '', '.'); ?><span class="prefix">vnđ</span>
-                                            </span>
-                                                </div>
-                                            </div>
-                                            <div class="desc mb-4">
+                                            <div class="-professor">
                                                 <?php
-                                                $string = strip_tags(base64_decode($room->getDescription()));
-                                                if (strlen($string) > 150) {
-
-                                                    // truncate string
-                                                    $stringCut = substr($string, 0, 150);
-                                                    $endPoint = strrpos($stringCut, ' ');
-
-                                                    //if the string doesn't contain any space then it will cut without word basis.
-                                                    $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
-                                                    $string .= '...';
-                                                }
-                                                echo $string; ?>
-                                            </div>
-                                            <div class="desc mb-4">
-                                                <span>Có <?= Room::checkUserInRoom($room->getID()) ?> học viên</span>
-                                            </div>
-                                            <div class="bottom-caption">
-                                                <div class="wrapper">
-                                                    <?php if ($room->getSubject()) : ?>
-                                                        <div class="d-inline-flex mb-2 mr-30 align-items-center">
-                                                            <span class="icon pe-7s-paper-plane"></span>
-                                                            <span class="price ml-1">
-                                                        <?php
-                                                        $subs = explode(",", $room->getSubject());
-                                                        $term = [];
-                                                        foreach ($subs as $sub) :
-                                                            if (isset($subjects_ids[$sub])) :
-                                                                $term[] = $subjects_ids[$sub];
-                                                            endif;
-                                                        endforeach;
-                                                        echo join(', ', $term);
-                                                        ?>
-                                                    </span>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                    <div class="d-inline-flex mb-2 mr-30 align-items-center">
-                                                        <?php if ($room->getAddress()) : ?>
-                                                        <span class="icon pe-7s-map-marker"></span>
-                                                        <span class="price ml-1">
-                                                    <?= str_replace('--', ',', $room->getAddress()) ?>
-                                                    <?php endif; ?>
-                                                </span>
+                                                $user_room_id = Room::getOwner($room->getID());
+                                                $user_room = User::getByID($user_room_id);
+                                                ?>
+                                                <div class="-avatar">
+                                                    <div class="-box-img">
+                                                        <?php if ($user_room->getAvatar()) : ?>
+                                                            <img src="uploads/<?= Media::getFileNameByKey($user_room->getAvatar()) ?>" alt="">
+                                                        <?php else: ?>
+                                                            <img src="img/man.svg" alt="">
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
-                                                <a href="<?= Config::HOME_PATH ?>/lop-hoc?data=<?= $room->getId() ?>" class="more custom-font mt-0 link">Nhận lớp <i class="pe-7s-angle-right"></i></a>
+                                                <div class="name text-center mt-20">
+                                                    <?= $user_room->getFirstName() . ' ' . $user_room->getLastName() ?>
+                                                </div>
+                                                <div class="-birthday text-center">
+                                                    <?php $date = DateTime::createFromFormat('Y-m-d', $user_room->getBirthday()); ?>
+                                                    <?= $date->format('d/m/Y'); ?>
+                                                </div>
+                                            </div>
+                                            <div class="-content">
+                                                <div class="top-caption d-flex">
+                                                    <h6 class="custom-font">
+                                                        <a href="<?= Config::HOME_PATH ?>/lop-hoc?data=<?= $room->getId() ?>"><?= $room->getTitle() ?></a>
+                                                    </h6>
+                                                    <div class="ml-30 price">
+                                                        <div class="d-inline-flex align-items-center">
+                                                            <span class="icon pe-7s-ticket"></span>
+                                                            <span class="ml-1">
+                                                            <?= number_format($room->getPrice(), 0, '', '.'); ?><span class="prefix">vnđ</span>
+                                                        </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="desc mb-4">
+                                                    <?php
+                                                    $string = strip_tags(base64_decode($room->getDescription()));
+                                                    if (strlen($string) > 150) {
+
+                                                        // truncate string
+                                                        $stringCut = substr($string, 0, 150);
+                                                        $endPoint = strrpos($stringCut, ' ');
+
+                                                        //if the string doesn't contain any space then it will cut without word basis.
+                                                        $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+                                                        $string .= '...';
+                                                    }
+                                                    echo $string; ?>
+                                                </div>
+                                                <div class="desc mb-4">
+                                                    <span>Có <?= Room::checkUserInRoom($room->getID()) ?> học viên</span>
+                                                </div>
+                                                <div class="bottom-caption">
+                                                    <div class="wrapper">
+                                                        <?php if ($room->getSubject()) : ?>
+                                                            <div class="d-inline-flex mb-2 mr-30 align-items-center">
+                                                                <span class="icon pe-7s-paper-plane"></span>
+                                                                <span class="price ml-1">
+                                                                    <?php
+                                                                    $subs = explode(",", $room->getSubject());
+                                                                    $term = [];
+                                                                    foreach ($subs as $sub) :
+                                                                        if (isset($subjects_ids[$sub])) :
+                                                                            $term[] = $subjects_ids[$sub];
+                                                                        endif;
+                                                                    endforeach;
+                                                                    echo join(', ', $term);
+                                                                    ?>
+                                                                </span>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                        <div class="d-inline-flex mb-2 mr-30 align-items-center">
+                                                            <?php if ($room->getAddress()) : ?>
+                                                            <span class="icon pe-7s-map-marker"></span>
+                                                            <span class="price ml-1">
+                                                            <?php $address = explode('--', $room->getAddress()); ?>
+                                                            <?= $address[1] . ', ' . $address[2] ?>
+                                                            <?php endif; ?>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <a href="<?= Config::HOME_PATH ?>/lop-hoc?data=<?= $room->getId() ?>" class="more custom-font mt-0 link">Nhận lớp <i class="pe-7s-angle-right"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

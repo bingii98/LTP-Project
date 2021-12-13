@@ -128,7 +128,7 @@ $subjectss = Subjects::getAll();
                     </div>
                     <div class="form-group">
                         <label>Giá dịch vụ (tính theo giờ)</label>
-                        <input type="number" class="form-control" name="price">
+                        <input type="text" data-type="currency" class="form-control" name="price">
                     </div>
                     <div class="form-group">
                         <label>Giờ trống</label>

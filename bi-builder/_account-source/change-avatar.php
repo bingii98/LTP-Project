@@ -19,6 +19,7 @@ global $user;
             </button>
         </div>
     </div>
+    <label id="apply-error" class="mt-20"></label>
     <button class="btn-curve btn-normal btn-change-avatar mt-50" style="display: none"><span>Xác nhận</span></button>
 </div>
 <input id="avatar-upload" type="file" accept="image/png, image/jpeg" class="hidden" name="avatar">

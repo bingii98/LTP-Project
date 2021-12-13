@@ -8016,7 +8016,8 @@ $('#avatar-change').click(function () {
         if (data['error'] === 1) {
           $('#apply-error').text(data['message']);
         } else {
-          $('#apply-error').text('Đăng ký thành công!');
+          $('#apply-error').text('Thay đổi thành công!');
+          $('.btn-change-avatar').hide();
         }
       }
     });
@@ -8086,7 +8087,13 @@ $("input[data-type='currency']").on({
   },
   blur: function () {
     formatCurrency($(this), "blur");
+  },
+  load: function () {
+    formatCurrency($(this), "blur");
   }
+});
+$(document).ready(function () {
+  formatCurrency($("input[data-type='currency']"));
 });
 
 function formatNumber(n) {

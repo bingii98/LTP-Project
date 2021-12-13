@@ -6,7 +6,7 @@ if (!is_user_logged_in()) return; ?>
         <div class="sidebar">
             <ul>
                 <li><a href="?thong-tin">Thông tin</a></li>
-                <li><a href="?anh-dai-dein">Ảnh đại diện</a></li>
+                <li><a href="?anh-dai-dien">Ảnh đại diện</a></li>
                 <?php if ((base64_decode($_SESSION["user_role"]) / 1368546448245512) == 2) : ?>
                     <li><a href="?de-nghi-day">Đề nghị đã đăng</a></li>
                     <li><a href="?tham-gia">Các lớp học đã tham gia</a></li>
@@ -21,7 +21,7 @@ if (!is_user_logged_in()) return; ?>
         <div class="form">
             <?php if (is_user_logged_in()) {
                 /** FOR ADMIN & PROFESSOR */
-                if (isset($_GET['anh-dai-dein'])) {
+                if (isset($_GET['anh-dai-dien'])) {
                     include_once 'bi-builder/_account-source/change-avatar.php';
                 } elseif (!is_current_user_student()) {
                     if (isset($_GET['lop-hoc'])) {

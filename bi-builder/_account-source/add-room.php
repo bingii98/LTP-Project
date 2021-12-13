@@ -83,7 +83,7 @@ $subjectss = Subjects::getAll();
                     </div>
                     <div class="form-group">
                         <label>Phí nhận lớp</label>
-                        <input type="number" class="form-control" name="price">
+                        <input type="text" class="form-control" name="price" data-type='currency'>
                     </div>
                     <div class="form-group">
                         <label>Lịch học</label>
@@ -193,6 +193,39 @@ $subjectss = Subjects::getAll();
                                 <input type="checkbox" id="8t" name="8t" value="true">
                                 <label for="8t">Tối</label>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="time">Địa chỉ</label>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Tỉnh / Thành phố</label>
+                                    <select class="" name="provinces" required>
+                                        <option value="">Tỉnh / Thành phố</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Huyện / Quận</label>
+                                    <select class="" name="district">
+                                        <option value="">Quận / Huyện</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label>Tên Phường/ Xã</label>
+                                    <input class="form-control border-dark" name="wards" value=""/>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>Tên Đường/ Số nhà</label>
+                                    <input class="form-control border-dark>" name="street" value=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="time">Map iframe</label>
+                            <textarea class="form-control border-dark" name="map"></textarea>
                         </div>
                     </div>
                 </div>

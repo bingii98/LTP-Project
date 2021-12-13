@@ -7,11 +7,13 @@ $data = Room::getByKey($_GET['data']);
 include_once 'bi-includes/_inc/header.php'; ?>
 <!-- ==================== Start Services ==================== -->
 <section class="services serv-pg section-padding bg-repeat bg-img pb-0" data-background="img/bg-pattern.jpg">
-    <div class="sec-head custom-font text-center">
-        <h6 class="wow fadeIn" data-wow-delay=".5s">Lớp học</h6>
-        <h3 class="wow lts-0" data-splitting>
-            <?= $data->getTitle() ?>
-        </h3>
+    <div class="container">
+        <div class="sec-head custom-font text-center">
+            <h6 class="wow fadeIn" data-wow-delay=".5s">Lớp học</h6>
+            <h4 class="wow lts-0 mt-30" data-splitting>
+                <?= $data->getTitle() ?>
+            </h4>
+        </div>
     </div>
     <div class="item wow fadeInUp p-5" data-wow-delay=".3s">
         <div class="container">

@@ -506,6 +506,13 @@ class Room
             return;
         }
 
+        /** CHECK MAP **/
+        if (isset($arr['map'])) {
+            $map = strip_tags($arr['map'], '<iframe>');
+            $map = base64_encode($map);
+            unset($arr['map']);
+        }
+
         /** CHECK EMPTY */
         if (count($arr) != count(array_filter($arr, "strlen"))) {
             echo json_encode(array(
@@ -525,7 +532,26 @@ class Room
         $description = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $description);
         $description = base64_encode($description);
 
-        /** CREATE SCHEDULE */
+        $address = $arr['street'] . '-- ' . $arr['wards'] . '-- ' . $arr['district'] . '-- ' . $arr['provinces'];
+        $subject_id = $arr['subject_id'] . ',';
+
+        /** CONFIG */
+        $isAdmin = isset($arr['admin']) && !empty($arr['admin']) ? $arr['admin'] : '';
+
+        /** REWRITE DATA */
+        unset($arr['action']);
+        unset($arr['description']);
+        unset($arr['data']);
+        unset($arr['provinces']);
+        unset($arr['district']);
+        unset($arr['street']);
+        unset($arr['wards']);
+        unset($arr['subject_id']);
+
+        /** PRICE FORMAT **/
+        if (isset($arr['price']))
+            $arr['price'] = (int)filter_var($arr['price'], FILTER_SANITIZE_NUMBER_INT);
+
         $schedule = [];
         for ($i = 0; $i <= 8; $i++) {
             if (isset($arr[$i . 's']) && $arr[$i . 's'] == 'true') {
@@ -542,24 +568,12 @@ class Room
             }
         }
 
-        /** CONFIG */
-        $isAdmin = isset($arr['admin']) && !empty($arr['admin']) ? $arr['admin'] : '';
-
-        /** REWRITE DATA */
-        unset($arr['action']);
-        unset($arr['description']);
-        unset($arr['admin']);
-
-        /** PRICE FORMAT **/
-        if (isset($arr['price']))
-            $arr['price'] = (int)filter_var($arr['price'], FILTER_SANITIZE_NUMBER_INT);
-
         try {
-            $sql = "INSERT INTO `room` (`id`, `title`, `userID`, `status`, `subject_id`, `type`, `sex`, `time`, `hours`, `price`, `offer_to_teach`, `description`, `schedule`, `isRequest`) VALUES 
+            $sql = "INSERT INTO `room` (`id`, `title`, `userID`, `status`, `subject_id`, `type`, `sex`, `time`, `hours`, `price`, `offer_to_teach`, `description`, `schedule`, `isRequest`, `address`, `map`) VALUES 
                     (NULL, '" . $arr['title'] . "', '" . (base64_decode($_SESSION["user_id"]) / 1368546448245512) . "', '" . $arr['status'] . "', 
-                    '" . $arr['subject_id'] . "', '" . $arr['type'] . "', '" . $arr['sex'] . "', 
+                    '" . $subject_id . "', '" . $arr['type'] . "', '" . $arr['sex'] . "', 
                     '" . $arr['time'] . "', '" . $arr['hours'] . "', '" . $arr['price'] . "', 
-                    '0', '" . $description . "', '" . join(',', $schedule) . "', '" . ($isRequest ? 1 : 0) . "')";
+                    '0', '" . $description . "', '" . join(',', $schedule) . "', '" . ($isRequest ? 1 : 0) . "', '" . $address . "', '" . $map . "')";
             if ($conn->query($sql) == TRUE) {
                 Message::add('Đã thêm lớp học ' . $arr['title'] . '!');
                 echo json_encode(array(
@@ -599,6 +613,13 @@ class Room
                 return;
             }
 
+            /** CHECK MAP **/
+            if (isset($arr['map'])) {
+                $map = strip_tags($arr['map'], '<iframe>');
+                $map = base64_encode($map);
+                unset($arr['map']);
+            }
+
             /** CHECK EMPTY */
             if (count($arr) != count(array_filter($arr, "strlen"))) {
                 echo json_encode(array(
@@ -625,9 +646,6 @@ class Room
             if (isset($arr['price']))
                 $arr['price'] = (int)filter_var($arr['price'], FILTER_SANITIZE_NUMBER_INT);
 
-            $map = strip_tags($arr['map'], '<iframe>');
-            $map = base64_encode($map);
-
             $schedule = [];
             for ($i = 0; $i <= 8; $i++) {
                 if (isset($arr[$i . 's']) && $arr[$i . 's'] == 'true') {
@@ -651,7 +669,6 @@ class Room
             unset($arr['action']);
             unset($arr['description']);
             unset($arr['data']);
-            unset($arr['map']);
             unset($arr['provinces']);
             unset($arr['district']);
             unset($arr['street']);

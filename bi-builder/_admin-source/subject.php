@@ -1,7 +1,7 @@
 <?php if (!is_current_user_admin()) return;
 
-require_once '_model/Parameter.php';
-require_once '_model/Subjects.php';
+require_once 'bi-includes/_model/Parameter.php';
+require_once 'bi-includes/_model/Subjects.php';
 
 /** CHECK DELETE */
 if (isset($_POST['delete']) && !empty($_POST['delete'])) {

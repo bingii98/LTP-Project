@@ -15,24 +15,25 @@ foreach ($subjectss as $subjects) {
         <?php foreach ($rooms['data'] as $room) : ?>
             <div class="col-12">
                 <div class="item room-item wow fadeInUp md-mb50 pt-20 pb-20 pl-3 pr-4 mb-30" data-wow-delay=".3s">
-                    <div class="top-caption d-flex">
-                        <h6 class="custom-font"><?= $room->getTitle() ?></h6>
-                        <div class="d-inline-flex mr-30 align-items-center price">
-                            <span class="icon pe-7s-ticket"></span>
-                            <span class="price ml-1">
+                    <div class="-content">
+                        <div class="top-caption d-flex">
+                            <h6 class="custom-font"><?= $room->getTitle() ?></h6>
+                            <div class="d-inline-flex mr-30 align-items-center price">
+                                <span class="icon pe-7s-ticket"></span>
+                                <span class="price ml-1">
                                 <?= number_format($room->getPrice(), 0, '', '.'); ?><span class="prefix">vnđ</span>
                             </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="desc mb-4">
-                        <span>Có <?= Room::checkUserInRoom($room->getID()) ?> học viên</span>
-                    </div>
-                    <div class="bottom-caption">
-                        <div class="wrapper">
-                            <?php if ($room->getSubject()) : ?>
-                                <div class="d-inline-flex mb-2 mr-30 align-items-center">
-                                    <span class="icon pe-7s-paper-plane"></span>
-                                    <span class="price ml-1">
+                        <div class="desc mb-4">
+                            <span>Có <?= Room::checkUserInRoom($room->getID()) ?> học viên</span>
+                        </div>
+                        <div class="bottom-caption">
+                            <div class="wrapper">
+                                <?php if ($room->getSubject()) : ?>
+                                    <div class="d-inline-flex mb-2 mr-30 align-items-center">
+                                        <span class="icon pe-7s-paper-plane"></span>
+                                        <span class="price ml-1">
                                 <?php
                                 $subs = explode(",", $room->getSubject());
                                 $term = [];
@@ -44,18 +45,19 @@ foreach ($subjectss as $subjects) {
                                 echo join(', ', $term);
                                 ?>
                             </span>
-                                </div>
-                            <?php endif; ?>
-                            <div class="d-inline-flex mb-2 mr-30 align-items-center">
-                                <?php if ($room->getAddress()) : ?>
-                                <span class="icon pe-7s-map-marker"></span>
-                                <span class="price ml-1">
+                                    </div>
+                                <?php endif; ?>
+                                <div class="d-inline-flex mb-2 mr-30 align-items-center">
+                                    <?php if ($room->getAddress()) : ?>
+                                    <span class="icon pe-7s-map-marker"></span>
+                                    <span class="price ml-1">
                                     <?= str_replace('--', ',', $room->getAddress()) ?>
                                     <?php endif; ?>
                                 </span>
+                                </div>
                             </div>
+                            <a href="<?= Config::HOME_PATH ?>/lop-hoc?data=<?= $room->getId() ?>" class="more custom-font mt-0 link">Xem chi tiết <i class="pe-7s-angle-right"></i></a>
                         </div>
-                        <a href="<?= Config::HOME_PATH ?>/lop-hoc?data=<?= $room->getId() ?>" class="more custom-font mt-0 link">Xem chi tiết <i class="pe-7s-angle-right"></i></a>
                     </div>
                 </div>
             </div>

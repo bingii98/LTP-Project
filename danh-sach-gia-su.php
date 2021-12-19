@@ -19,8 +19,8 @@ foreach ($subjectss as $subjects) {
 //QUERY PARAM
 $begin_price = isset($_GET['begin_price']) && !empty($_GET['begin_price']) ? $_GET['begin_price'] : null;
 $from_price = isset($_GET['from_price']) && !empty($_GET['from_price']) ? $_GET['from_price'] : null;
-$provinces = isset($_GET['select_provinces']) && !empty($_GET['select_provinces']) ? $_GET['select_provinces'] : null;
-$district = isset($_GET['select_district']) && !empty($_GET['select_district']) ? $_GET['select_district'] : null;
+$provinces = isset($_GET['provinces']) && !empty($_GET['provinces']) ? $_GET['provinces'] : null;
+$district = isset($_GET['district']) && !empty($_GET['district']) ? $_GET['district'] : null;
 $rate = isset($_GET['rate']) && !empty($_GET['rate']) ? $_GET['rate'] : null;
 $subjects_id = isset($_GET['subjects']) && !empty($_GET['subjects']) ? $_GET['subjects'] : null;
 ?>
@@ -53,6 +53,11 @@ $subjects_id = isset($_GET['subjects']) && !empty($_GET['subjects']) ? $_GET['su
 
     <section id="services" class="services section-padding bg-repeat bg-img" data-background="img/bg-pattern.jpg">
         <div class="container">
+            <?php if ($provinces) : $address_description = Address::getAddress($provinces, $district); ?>
+                <div class="mb-30 -short-description">
+                    <?= base64_decode($address_description->getDescription()) ?>
+                </div>
+            <?php endif; ?>
             <div class="row">
                 <div class="col-lg-3">
                     <div class="filter-wrap">
@@ -62,13 +67,13 @@ $subjects_id = isset($_GET['subjects']) && !empty($_GET['subjects']) ? $_GET['su
                                 <div class="content">
                                     <div class="select-custom">
                                         <label for="">Thành phố</label>
-                                        <select name="provinces" required>
+                                        <select name="provinces" data-selected="<?= $provinces ?>" required>
                                             <option value="">Tỉnh / Thành phố</option>
                                         </select>
                                     </div>
                                     <div class="select-custom">
                                         <label for="">Quận/Huyện</label>
-                                        <select name="district">
+                                        <select name="district" data-selected="<?= $district ?>">
                                             <option value="">Quận / Huyện</option>
                                         </select>
                                     </div>

@@ -6,7 +6,7 @@ require_once 'bi-includes/_model/Address.php';
 if (isset($_POST['delete']) && !empty($_POST['delete'])) {
     $rs = Address::delete($_POST['delete']);
     if ($rs['error'] == 0) {
-        echo 'Deleted ' . $rs['room'] . ' class!';
+        echo 'Đã xóa mô tả địa chỉ ' . join(',', [$rs['district'], $rs['provinces']]) . '!';
     } else {
         echo 'Something went wrong!';
     }
@@ -16,9 +16,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $address = Address::getPagination($page);
 ?>
 <form class="card shadow mb-4" method="post">
-    <input type="hidden" name="action" value="user">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">User Data</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Address Data</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -37,10 +36,10 @@ $address = Address::getPagination($page);
                     <tr>
                         <td class="small"><?= $ads->getProvinces() ?></td>
                         <td class="small"><?= $ads->getDistrict() ?></td>
-                        <td class="small"><?= $ads->getDescription ?></td>
+                        <td class="small"><?= substr(base64_decode($ads->getDescription()), 0, 200) ?></td>
                         <td>
                             <button class="btn btn-remove" name="delete" value="<?= $ads->getId() ?>" title="Delete"><i class="fas fa-trash"></i></button>
-                            <a class="btn btn-edit" href="?action=class-edit&data=<?= $ads->getId() ?>" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-edit" href="?action=edit-address&data=<?= $ads->getId() ?>" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

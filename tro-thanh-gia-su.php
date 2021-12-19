@@ -45,8 +45,14 @@ global $user;
                     } else { ?>
                         <span class="pt-100 pb-100">Hiện tại bạn là gia sư!</span>
                     <?php }
-                } else {
-                    include_once 'bi-builder/_admin-source/login-required.php';
+                } else { ?>
+                    <div class="desc desc-1">
+                        <?= base64_decode(Parameter::getValueByKey('become_professor_description')) ?>
+                        <div class="d-block mt-30">
+                            <?php include_once 'bi-builder/_admin-source/login-required.php'; ?>
+                        </div>
+                    </div>
+                    <?php
                 } ?>
             </div>
         </div>

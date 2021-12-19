@@ -7478,49 +7478,66 @@ $(document).ready(function () {
 
 
 if ($('select[name="provinces"]').length && $('select[name="district"]').length) {
-  var address_1 = null;
-  var address_2 = null;
   var district = null;
+  var provinces = null;
+  var district_save = null;
+  var provinces_save = null;
+  var district_select = $('select[name="district"]');
+  var provinces_select = $('select[name="provinces"]');
 
-  if (address_2 = localStorage.getItem('address_2_saved')) {
-    $('select[name="district"] option').each(function () {
-      if ($(this).text() == address_2) {
-        $(this).attr('selected', '');
-      }
-    });
-    $('input.billing_address_2').attr('value', address_2);
+  if (district_select.data('selected') !== '') {
+    district_save = district_select.data('selected');
+    localStorage.setItem('district_save', district_select.data('selected'));
+  } else {
+    district_save = localStorage.getItem('district_save');
   }
 
-  if (district = localStorage.getItem('district')) {
-    $('select[name="district"]').html(district);
-    $('select[name="district"]').on('change', function () {
-      var target = $(this).children('option:selected');
-      target.attr('selected', '');
-      $('select[name="district"] option').not(target).removeAttr('selected');
-      address_2 = target.text();
-      $('input.billing_address_2').attr('value', address_2);
-      district = $('select[name="district"]').html();
-      localStorage.setItem('district', district);
-      localStorage.setItem('address_2_saved', address_2);
-    });
+  if (provinces_select.data('selected') !== '') {
+    provinces_save = provinces_select.data('selected');
+    localStorage.setItem('provinces_save', provinces_select.data('selected'));
+  } else {
+    provinces_save = localStorage.getItem('provinces_save');
   }
+  /** Init District **/
 
-  $('select[name="provinces"]').each(function () {
+
+  district_select.each(function () {
     var $this = $(this),
-        stc = '';
-    c.forEach(function (i, e) {
-      e += +1;
-      stc += `<option value="${i}">${i}</option>`;
-      $this.html('<option value="">Tỉnh / Thành phố</option>' + stc);
+        stc = '',
+        ind_select = null;
 
-      if (address_1 = localStorage.getItem('address_1_saved')) {
-        $('select[name="provinces"] option').each(function () {
-          if ($(this).text() == address_1) {
+    if (district = arr[c.indexOf(provinces_save)]) {
+      district.forEach(function (i, e) {
+        stc += `<option value="${i}">${i}</option>`;
+        $this.html('<option value="">Quận / Huyện</option>' + stc);
+        $('select[name="district"] option').each(function () {
+          if ($(this).text() == district_save) {
             $(this).attr('selected', '');
           }
         });
-        $('input.billing_address_1').attr('value', address_1);
-      }
+      });
+      /** District Event **/
+
+      $('select[name="district"]').on('change', function () {
+        localStorage.setItem('district_save', $(this).val());
+      });
+    }
+  });
+  /** Init Provinces **/
+
+  provinces_select.each(function () {
+    var $this = $(this),
+        stc = '',
+        ind_select = null;
+    c.forEach(function (i, e) {
+      stc += `<option value="${i}">${i}</option>`;
+      $this.html('<option value="">Tỉnh / Thành phố</option>' + stc);
+      $('select[name="provinces"] option').each(function () {
+        if ($(this).text() == provinces_save) {
+          $(this).attr('selected', '');
+        }
+      });
+      /** Provinces Event **/
 
       $this.on('change', function (i) {
         i = $this.children('option:selected').index() - 1;
@@ -7532,25 +7549,7 @@ if ($('select[name="provinces"]').length && $('select[name="district"]').length)
             str += '<option value="' + el + '">' + el + '</option>';
             $('select[name="district"]').html('<option value="">Quận / Huyện</option>' + str);
           });
-          var address_1 = $this.children('option:selected').text();
-          var district = $('select[name="district"]').html();
-          localStorage.setItem('address_1_saved', address_1);
-          localStorage.setItem('district', district);
-          $('select[name="district"]').on('change', function () {
-            var target = $(this).children('option:selected');
-            target.attr('selected', '');
-            $('select[name="district"] option').not(target).removeAttr('selected');
-            var address_2 = target.text();
-            $('input.billing_address_2').attr('value', address_2);
-            district = $('select[name="district"]').html();
-            localStorage.setItem('district', district);
-            localStorage.setItem('address_2_saved', address_2);
-          });
-        } else {
-          $('select[name="district"]').html('<option value="">Quận / Huyện</option>');
-          district = $('select[name="district"]').html();
-          localStorage.setItem('district', district);
-          localStorage.removeItem('address_1_saved', address_1);
+          localStorage.setItem('provinces_save', $(this).val());
         }
       });
     });
@@ -7576,6 +7575,7 @@ function stripHtml(html) {
 function editorInit() {
   $('#editor-content').bind('DOMSubtreeModified', function () {
     $('[name="description"]').val($('#editor-content').getHtmlContent());
+    $('[name="value"]').val($('#editor-content').getHtmlContent());
   });
   const toolbar = document.querySelector("#editor-toolbar");
   const content = document.querySelector("#editor-content");
@@ -7842,7 +7842,7 @@ $("#add-subjects, #edit-subject, #add-room, #edit-room, #add-request").submit(fu
     }
   });
 });
-$("#add-user-room, #edit-user-room").submit(function (e) {
+$("#add-user-room, #edit-user-room, #add-address").submit(function (e) {
   e.preventDefault();
   var form = $(this);
   var url = form.attr('action');
@@ -7858,6 +7858,7 @@ $("#add-user-room, #edit-user-room").submit(function (e) {
         if (data['exist'] === 1) {
           $(`[name="name"]`).after('<label class="error-label">Tên đã được sử dụng!</label>');
           $(`[name="title"]`).after('<label class="error-label">Tên đã được sử dụng!</label>');
+          $(`.address-error`).after('<label class="error-label">Địa chỉ này đã tồn tại mô tả!</label>');
         } else {
           $.each(data['empty_fields'], function (index, value) {
             $(`[name=${index}]`).after('<label class="error-label">Vui lòng không để trống trường này!</label>');
@@ -7882,7 +7883,6 @@ $("#login").submit(function (e) {
     url: url,
     data: form.serialize(),
     beforeSend: function () {
-      console.log(form.serialize());
       $('.error-label').remove();
     },
     success: function (data) {

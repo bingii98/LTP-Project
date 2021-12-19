@@ -24,9 +24,15 @@ $datas = Parameter::getAll(); ?>
                                 <?= $data->getData() ?>
                             </a>
                         </td>
-                        <td><?= $data->getValue() ?></td>
                         <td>
-                            <a class="btn btn-edit" href="?edit=<?= $data->getKey() ?>" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                            <?php if ($data->getKey() == 'become_professor_description') : ?>
+                                <?= base64_decode($data->getValue()) ?>
+                            <?php else: ?>
+                                <?= $data->getValue() ?>
+                            <?php endif; ?>
+                        </td>
+                        <td>
+                            <a class="btn btn-edit" href="?action=edit-parameter&data=<?= $data->getKey() ?>" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

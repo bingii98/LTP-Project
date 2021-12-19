@@ -1,11 +1,14 @@
 <?php
+include_once 'bi-includes/_inc/Config.php';
 include_once 'bi-includes/_model/User.php';
 include_once 'bi-includes/_model/Subjects.php';
 include_once 'bi-includes/_model/Room.php';
 include_once 'bi-includes/_model/Media.php';
+include_once 'bi-includes/_model/Address.php';
 $data = $_POST;
 $action = $data['action'];
 switch ($action) {
+    /** ACCOUNT **/
     case "edit-account":
         echo User::editUser($data);
         break;
@@ -21,12 +24,14 @@ switch ($action) {
     case "register":
         echo User::register($data);
         break;
+    /** SUBJECT **/
     case "add-subject":
         echo Subjects::add($data);
         break;
     case "edit-subject":
         echo Subjects::edit($data);
         break;
+    /** ROOM **/
     case "add-room":
         echo Room::add($data);
         break;
@@ -48,6 +53,18 @@ switch ($action) {
     case "edit-rating":
         echo Room::editRating($data);
         break;
+    /** ADDRESS **/
+    case "add-address":
+        echo Address::add($data);
+        break;
+    case "edit-address":
+        echo Address::edit($data);
+        break;
+    /** PARAMETER **/
+    case "edit-parameter":
+        echo Parameter::edit($data);
+        break;
+    /** FILE **/
     case "upload-file":
         $upload = Media::upload($data);
         if ($upload['error'] == 0 && isset($upload['media']) && !empty($upload['media'])) {

@@ -41,6 +41,15 @@ if (isset($_GET['action']) && !empty($_GET['action'])) :
         case "address":
             include_once 'bi-builder/_admin-source/address.php';
             break;
+        case "add-address":
+            include_once 'bi-builder/_admin-source/address-add.php';
+            break;
+        case "edit-address":
+            include_once 'bi-builder/_admin-source/address-edit.php';
+            break;
+        case "edit-parameter":
+            include_once 'bi-builder/_admin-source/parameter-edit.php';
+            break;
         case "media":
             if(isset($_GET['info']) && !empty($_GET['info'])){
                 include_once 'bi-builder/_admin-source/media-detail.php';

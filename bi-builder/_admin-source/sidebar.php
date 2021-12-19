@@ -83,6 +83,7 @@
                 <h6 class="collapse-header">Custom Components:</h6>
                 <a class="collapse-item" href="<?= Config::HOME_PATH ?>\admin?action=parameter">Cài đặt chung</a>
                 <a class="collapse-item" href="<?= Config::HOME_PATH ?>\admin?action=address">Địa chỉ</a>
+                <a class="collapse-item" href="<?= Config::HOME_PATH ?>\admin?action=add-address">Thêm địa chỉ</a>
             </div>
         </div>
     </li>

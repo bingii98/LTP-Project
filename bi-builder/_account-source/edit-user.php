@@ -63,15 +63,20 @@
             </div>
         </div>
         <div class="form-row">
+            <?php
+            $address = str_replace('[', '', $user->getAddress());
+            $address = str_replace(']', '', $address);
+            $address = explode('--', $address);
+            ?>
             <div class="form-group col-md-6">
                 <label>Tỉnh / Thành phố</label>
-                <select class="<?= $isEdit ? '' : 'view'; ?>" name="provinces" required>
+                <select class="<?= $isEdit ? '' : 'view'; ?>" name="provinces" data-selected="<?= $address[0] ?>" required>
                     <option value="">Tỉnh / Thành phố</option>
                 </select>
             </div>
             <div class="form-group col-md-6">
                 <label>Huyện / Quận</label>
-                <select class="<?= $isEdit ? '' : 'view'; ?>" name="district">
+                <select class="<?= $isEdit ? '' : 'view'; ?>" name="district" data-selected="<?= $address[1] ?>">
                     <option value="">Quận / Huyện</option>
                 </select>
             </div>
@@ -146,6 +151,118 @@
             <div class="form-group">
                 <label>Giá dịch vụ (tính theo giờ)</label>
                 <input type="text" data-type="currency" class="form-control<?= $isEdit ? '' : ' view'; ?>" name="price" value="<?= $user->getPrice() ?>">
+            </div>
+        </div>
+        <div class="form-box bg-repeat bg-img" data-background="img/bg-pattern.jpg" data-title="Lịch">
+            <div class="form-group">
+                <label>Giờ trống</label>
+                <div class="calendar-week">
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <label>Thứ 2</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <label>Thứ 3</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <label>Thứ 4</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <label>Thứ 5</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <label>Thứ 6</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <label>Thứ 7</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <label>Chủ nhật</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="2s" name="2s" value="true" <?= strpos($user->getSchedule(), '2s') !== false ? 'checked' : '' ?>>
+                        <label for="2s">Sáng</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="3s" name="3s" value="true" <?= strpos($user->getSchedule(), '3s') !== false ? 'checked' : '' ?>>
+                        <label for="3s">Sáng</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="4s" name="4s" value="true" <?= strpos($user->getSchedule(), '4s') !== false ? 'checked' : '' ?>>
+                        <label for="4s">Sáng</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="5s" name="5s" value="true" <?= strpos($user->getSchedule(), '5s') !== false ? 'checked' : '' ?>>
+                        <label for="5s">Sáng</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="6s" name="6s" value="true" <?= strpos($user->getSchedule(), '6s') !== false ? 'checked' : '' ?>>
+                        <label for="6s">Sáng</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="7s" name="7s" value="true" <?= strpos($user->getSchedule(), '7s') !== false ? 'checked' : '' ?>>
+                        <label for="7s">Sáng</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="8s" name="8s" value="true" <?= strpos($user->getSchedule(), '8s') !== false ? 'checked' : '' ?>>
+                        <label for="8s">Sáng</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="2c" name="2c" value="true" <?= strpos($user->getSchedule(), '2c') !== false ? 'checked' : '' ?>>
+                        <label for="2c">Chiều</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="3c" name="3c" value="true" <?= strpos($user->getSchedule(), '3c') !== false ? 'checked' : '' ?>>
+                        <label for="3c">Chiều</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="4c" name="4c" value="true" <?= strpos($user->getSchedule(), '4c') !== false ? 'checked' : '' ?>>
+                        <label for="4c">Chiều</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="5c" name="5c" value="true" <?= strpos($user->getSchedule(), '5c') !== false ? 'checked' : '' ?>>
+                        <label for="5c">Chiều</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="6c" name="6c" value="true" <?= strpos($user->getSchedule(), '6c') !== false ? 'checked' : '' ?>>
+                        <label for="6c">Chiều</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="7c" name="7c" value="true" <?= strpos($user->getSchedule(), '7c') !== false ? 'checked' : '' ?>>
+                        <label for="7c">Chiều</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="8c" name="8c" value="true" <?= strpos($user->getSchedule(), '8c') !== false ? 'checked' : '' ?>>
+                        <label for="8c">Chiều</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="2t" name="2t" value="true" <?= strpos($user->getSchedule(), '2t') !== false ? 'checked' : '' ?>>
+                        <label for="2t">Tối</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="3t" name="3t" value="true" <?= strpos($user->getSchedule(), '3t') !== false ? 'checked' : '' ?>>
+                        <label for="3t">Tối</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="4t" name="4t" value="true" <?= strpos($user->getSchedule(), '4t') !== false ? 'checked' : '' ?>>
+                        <label for="4t">Tối</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="5t" name="5t" value="true" <?= strpos($user->getSchedule(), '5t') !== false ? 'checked' : '' ?>>
+                        <label for="5t">Tối</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="6t" name="6t" value="true" <?= strpos($user->getSchedule(), '6t') !== false ? 'checked' : '' ?>>
+                        <label for="6t">Tối</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="7t" name="7t" value="true" <?= strpos($user->getSchedule(), '7t') !== false ? 'checked' : '' ?>>
+                        <label for="7t">Tối</label>
+                    </div>
+                    <div class="item<?= !$isEdit ? '' : ' editable'; ?>">
+                        <input type="checkbox" id="8t" name="8t" value="true" <?= strpos($user->getSchedule(), '8t') !== false ? 'checked' : '' ?>>
+                        <label for="8t">Tối</label>
+                    </div>
+                </div>
             </div>
         </div>
     <?php endif; ?>

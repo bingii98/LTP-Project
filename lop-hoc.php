@@ -24,11 +24,13 @@ include_once 'bi-includes/_inc/header.php'; ?>
                         <h6 class="sub-title">Trạng thái:</h6>
                         <span><?= $data->getStatus() ?></span>
                     </div>
-                    <div class="line">
-                        <span class="icon-2 pe-7s-note2"></span>
-                        <h6 class="sub-title">Môn học:</h6>
-                        <span><?= Subjects::getByKey($data->getSubject())->getName() ?></span>
-                    </div>
+                    <?php if ($data->getSubject()) : ?>
+                        <div class="line">
+                            <span class="icon-2 pe-7s-note2"></span>
+                            <h6 class="sub-title">Môn học:</h6>
+                            <span><?= Subjects::getByKey($data->getSubject())->getName() ?></span>
+                        </div>
+                    <?php endif; ?>
                     <div class="line">
                         <span class="icon-2 pe-7s-bookmarks"></span>
                         <h6 class="sub-title">Hình thức:</h6>
@@ -37,7 +39,7 @@ include_once 'bi-includes/_inc/header.php'; ?>
                     <div class="line">
                         <span class="icon-2 pe-7s-map-marker"></span>
                         <h6 class="sub-title">Địa chỉ:</h6>
-                        <span><?= $data->getAddress() ?></span>
+                        <span><?= str_replace('--', ',', $data->getAddress()) ?></span>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -64,19 +66,7 @@ include_once 'bi-includes/_inc/header.php'; ?>
                         <div class="line">
                             <span class="icon-2 pe-7s-switch"></span>
                             <h6 class="sub-title">Đánh giá:</h6>
-                            <?php $rate = Room::getRating($data->getID()); ?>
-                            <span class="rating">
-                            <?php for ($index = 0; $index < 5; $index++) : ?>
-                                <?php if ($index < $rate['data']) : ?>
-                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 32 32" height="512" viewBox="0 0 32 32" width="512"><g id="star"><path
-                                                    d="m29.911 13.75-6.229 6.072 1.471 8.576c.064.375-.09.754-.398.978-.174.127-.381.191-.588.191-.159 0-.319-.038-.465-.115l-7.702-4.049-7.701 4.048c-.336.178-.745.149-1.053-.076-.308-.224-.462-.603-.398-.978l1.471-8.576-6.23-6.071c-.272-.266-.371-.664-.253-1.025s.431-.626.808-.681l8.609-1.25 3.85-7.802c.337-.683 1.457-.683 1.794 0l3.85 7.802 8.609 1.25c.377.055.69.319.808.681s.019.758-.253 1.025z"/></g></svg>
-                                <?php else: ?>
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="511pt" viewBox="0 -10 511.98685 511" width="511pt"><path
-                                                d="m114.59375 491.140625c-5.609375 0-11.179688-1.75-15.933594-5.1875-8.855468-6.417969-12.992187-17.449219-10.582031-28.09375l32.9375-145.089844-111.703125-97.960937c-8.210938-7.167969-11.347656-18.519532-7.976562-28.90625 3.371093-10.367188 12.542968-17.707032 23.402343-18.710938l147.796875-13.417968 58.433594-136.746094c4.308594-10.046875 14.121094-16.535156 25.023438-16.535156 10.902343 0 20.714843 6.488281 25.023437 16.511718l58.433594 136.769532 147.773437 13.417968c10.882813.980469 20.054688 8.34375 23.425782 18.710938 3.371093 10.367187.253906 21.738281-7.957032 28.90625l-111.703125 97.941406 32.9375 145.085938c2.414063 10.667968-1.726562 21.699218-10.578125 28.097656-8.832031 6.398437-20.609375 6.890625-29.910156 1.300781l-127.445312-76.160156-127.445313 76.203125c-4.308594 2.558594-9.109375 3.863281-13.953125 3.863281zm141.398438-112.875c4.84375 0 9.640624 1.300781 13.953124 3.859375l120.277344 71.9375-31.085937-136.941406c-2.21875-9.746094 1.089843-19.921875 8.621093-26.515625l105.472657-92.5-139.542969-12.671875c-10.046875-.917969-18.6875-7.234375-22.613281-16.492188l-55.082031-129.046875-55.148438 129.066407c-3.882812 9.195312-12.523438 15.511718-22.546875 16.429687l-139.5625 12.671875 105.46875 92.5c7.554687 6.613281 10.859375 16.769531 8.621094 26.539062l-31.0625 136.9375 120.277343-71.914062c4.308594-2.558594 9.109376-3.859375 13.953126-3.859375zm-84.585938-221.847656s0 .023437-.023438.042969zm169.128906-.0625.023438.042969c0-.023438 0-.023438-.023438-.042969zm0 0"/></svg>
-                                <?php endif; ?>
-                            <?php endfor; ?>
-                        </span>
-                            <span>(<?= $rate['count'] ?>)</span>
+                            <?= User::get_room_rating_display($data->getID()) ?>
                         </div>
                     <?php endif; ?>
                     <?php /** FOR REQUEST - END **/ ?>
@@ -88,7 +78,7 @@ include_once 'bi-includes/_inc/header.php'; ?>
                         <div class="line">
                             <span class="icon-2 pe-7s-switch"></span>
                             <h6 class="sub-title">Đề nghị dạy:</h6>
-                            <span>Đã có <?= Room::checkUserInRoom($data->getID()) ?> <?= $data->getIsRequest() == 1 ? ' ứng tuyển' : 'học viên' ?></span>
+                            <span>Đã có <?= Room::countUserInRoom($data->getID()) ?> <?= $data->getIsRequest() == 1 ? ' ứng tuyển' : 'học viên' ?></span>
                         </div>
                         <?php $isJoined = Room::checkReviewed($data->getID()); ?>
                         <div class="line">
@@ -111,7 +101,7 @@ include_once 'bi-includes/_inc/header.php'; ?>
                                 <?php /** FOR REQUEST - START **/ ?>
                                 <?php if ($data->getIsRequest() != 1) : ?>
                                     <?php if ($isJoined['reviewed'] && !$isJoined['checked'] && !$data->isClosed()) : ?>
-                                        Đánh giá tạm thời của bạn cho lớp học này là 5 sao, bạn có thể đánh giá lại sao khi hoàn thành khóa học!
+                                        Đánh giá tạm thời của bạn cho lớp học này là 4 sao, bạn có thể đánh giá lại sao khi hoàn thành khóa học!
                                     <?php elseif ($isJoined['reviewed'] && !$isJoined['checked'] && $data->isClosed()): ?>
                                         Bạn có thể đánh giá lại
                                     <?php endif; ?>
@@ -358,14 +348,16 @@ include_once 'bi-includes/_inc/header.php'; ?>
         <div class="backdrop"></div>
     </div>
 <?php endif; ?>
-
-<section class="page-header">
-    <div class="img-wrapper">
-        <div class="map" id="ieatmaps">
-            <?= base64_decode($data->getMap()) ?>
+<?php
+if (!empty($data->getMap()) && strlen(trim(base64_decode($data->getMap()))) > 0) : ?>
+    <section class="page-header">
+        <div class="img-wrapper">
+            <div class="map" id="ieatmaps">
+                <?= base64_decode($data->getMap()) ?>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+<?php endif; ?>
 
 <?php include_once 'bi-includes/_inc/footer.php' ?>
 

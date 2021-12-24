@@ -109,15 +109,20 @@ $isEdit = isset($_GET['edit']) ? true : false;
                             </div>
                         </div>
                         <div class="form-row">
+                            <?php
+                            $address = str_replace('[', '', $user->getAddress());
+                            $address = str_replace(']', '', $address);
+                            $address = explode('--', $address);
+                            ?>
                             <div class="form-group col-md-6">
                                 <label>Tỉnh / Thành phố</label>
-                                <select class="<?= $isEdit ? '' : 'view'; ?>" name="provinces" required>
+                                <select class="<?= $isEdit ? '' : 'view'; ?>" name="provinces" data-selected="<?= $address[0] ?>" required>
                                     <option value="">Tỉnh / Thành phố</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Huyện / Quận</label>
-                                <select class="<?= $isEdit ? '' : 'view'; ?>" name="district">
+                                <select class="<?= $isEdit ? '' : 'view'; ?>" name="district" data-selected="<?= $address[1] ?>">
                                     <option value="">Quận / Huyện</option>
                                 </select>
                             </div>

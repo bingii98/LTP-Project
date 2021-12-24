@@ -704,17 +704,33 @@ class Room
         }
     }
 
-    public static function checkUserInRoom($room = null, $user = null)
+    public static function countUserInRoom($room)
     {
         try {
             $conn = DBConnection::getConnection();
-            // $user = $user ?? (base64_decode($_SESSION["user_id"]) / 1368546448245512);
             $sql = 'SELECT count(*) FROM `room_user` WHERE `room` = ' . $room;
-            $rs = mysqli_query($conn, $sql);
-            $total = $rs->fetch_row();
+            if ($rs = mysqli_query($conn, $sql)) {
+                $total = $rs->fetch_row();
 
-            DBConnection::closeConnection($conn);
-            return $total[0];
+                DBConnection::closeConnection($conn);
+                return $total[0];
+            }
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+
+    public static function checkUserInRoom($room, $user)
+    {
+        try {
+            $conn = DBConnection::getConnection();
+            $sql = 'SELECT count(*) FROM `room_user` WHERE `room` = ' . $room . ' AND `user` = ' . $user;
+            if ($rs = mysqli_query($conn, $sql)) {
+                $total = $rs->fetch_row();
+
+                DBConnection::closeConnection($conn);
+                return $total[0];
+            }
         } catch (Exception $e) {
             return 0;
         }
@@ -814,8 +830,8 @@ class Room
 
         /** GET DATA */
         try {
-            $sql = "INSERT INTO `room_user` (`id`, `room`, `user`, `rating`, `checked`) 
-                                    VALUES (NULL, '" . $arr['data'] . "', '" . (base64_decode($_SESSION["user_id"]) / 1368546448245512) . "', 5, 0);";
+            $sql = "INSERT INTO `room_user` (`id`, `room`, `user`, `owner`, `rating`, `checked`) 
+                                    VALUES (NULL, '" . $arr['data'] . "', '" . (base64_decode($_SESSION["user_id"]) / 1368546448245512) . "', " . self::getOwner($ROOM->getID()) . ", 4, 0);";
             if ($conn->query($sql) == TRUE) {
                 Message::add('Người dùng ' . $USER->getUsername() . ' đã đăng ký lớp ' . $ROOM->getTitle() . '!');
                 echo json_encode(array(

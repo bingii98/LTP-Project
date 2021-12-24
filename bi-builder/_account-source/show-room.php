@@ -30,7 +30,7 @@ foreach ($subjectss as $subjects) {
                             </div>
                         </div>
                         <div class="desc mb-4">
-                            <span>Có <?= Room::checkUserInRoom($room->getID()) ?> học viên</span>
+                            <span>Có <?= Room::countUserInRoom($room->getID()) ?> học viên</span>
                         </div>
                         <div class="bottom-caption">
                             <div class="wrapper">

@@ -20,7 +20,7 @@ if (isset($_POST['confirm_professor']) && !empty($_POST['confirm_professor'])) {
 }
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$users = User::getUser_Pagination($page);
+$users = User::get_user_pagination($page);
 
 ?>
 <form class="card shadow mb-4" method="post">

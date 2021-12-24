@@ -29,7 +29,7 @@ foreach ($subjectss as $subjects) {
                             </div>
                         </div>
                         <div class="desc mb-4">
-                            <span>Đã có <?= Room::checkUserInRoom($room->getID()) ?> <?= $room->getIsRequest() == 1 ? ' ứng tuyển' : 'học viên' ?></span>
+                            <span>Đã Có <?= Room::countUserInRoom($room->getID()) ?> <?= $room->getIsRequest() == 1 ? ' ứng tuyển' : 'học viên' ?></span>
                         </div>
                         <?php if ($room->getSubject()) : ?>
                             <div class="d-inline-flex mr-30 align-items-center">

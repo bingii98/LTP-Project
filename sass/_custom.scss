@@ -878,6 +878,21 @@ label.error {
 
 .profile-item {
   height: 100%;
+
+  .content {
+    color: #0a0a0a;
+  }
+
+  .avatar {
+    .rating-wrapper {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      padding: 2px 5px;
+      border-radius: 7px;
+      background-color: #fff;
+    }
+  }
 }
 
 .room-item {
@@ -1055,4 +1070,35 @@ label.error {
 
 .-short-description {
   background-color: #fff;
+}
+
+
+.rating-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  .icon-rating {
+    height: 30px;
+
+    svg {
+      height: 30px;
+      width: 20px;
+      object-fit: contain;
+    }
+  }
+
+  .number-label {
+    font-weight: bold;
+    height: 20px;
+    line-height: 23px;
+    @include font-size(17px);
+  }
+
+  .count-label {
+    height: 20px;
+    color: grey;
+    line-height: 23px;
+    @include font-size(15px);
+  }
 }

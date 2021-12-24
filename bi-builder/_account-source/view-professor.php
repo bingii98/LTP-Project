@@ -8,7 +8,7 @@ require_once 'bi-includes/_model/Parameter.php';
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $room = isset($_GET['data']) ? $_GET['data'] : 1;
 
-$users = User::getJoinedPaginationByRoom($page, $room);
+$users = User::get_joined_pagination_by_room($page, $room);
 
 $subjectss = Subjects::getAll();
 $subjects_ids = [];
